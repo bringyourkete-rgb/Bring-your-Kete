@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bring Your Kete — Documentary & Podcast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0A0A0A;--yellow:#F5D800;--yellow-dim:#C8B000;--white:#FAFAF5;
+  --grey:#1A1A1A;--grey2:#2A2A2A;--grey3:#444;--muted:#888;
+  --font-display:'Playfair Display',serif;
+  --font-ui:'Space Grotesk',sans-serif;
+  --font-mono:'Space Mono',monospace;
+}
+body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-height:100vh;overflow-x:hidden}
+
+/* ── VIEWS ── */
+#view-public,#view-login,#view-dashboard{display:none}
+#view-public.active,#view-login.active,#view-dashboard.active{display:block}
+
+/* ══ PUBLIC SITE ══ */
+
+/* NAV */
+.pub-nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 48px;
+  background:linear-gradient(#0A0A0Aee,transparent);
+}
+.pub-logo-wrap{display:flex;align-items:center;gap:14px;text-decoration:none}
+.pub-logo-circle{
+  width:52px;height:52px;border-radius:50%;background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;
+}
+.pub-logo-circle img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.pub-logo-text{
+  font-family:var(--font-display);font-size:18px;font-weight:700;
+  color:var(--white);letter-spacing:.01em;line-height:1.1;
+}
+.pub-logo-sub{font-size:10px;font-family:var(--font-mono);color:var(--yellow);letter-spacing:.2em;text-transform:uppercase}
+.pub-nav-links{display:flex;gap:28px;align-items:center}
+.pub-nav-links a{
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:#aaa;text-decoration:none;transition:color .2s;font-family:var(--font-mono);
+}
+.pub-nav-links a:hover{color:var(--yellow)}
+.pub-access-btn{
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--black);background:var(--yellow);border:none;
+  padding:9px 20px;cursor:pointer;font-family:var(--font-mono);
+  transition:all .2s;white-space:nowrap;
+}
+.pub-access-btn:hover{background:var(--yellow-dim)}
+
+/* HERO */
+.pub-hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 48px 72px;position:relative;overflow:hidden;
+  background:#0A0A0A;
+}
+.hero-bg-text{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--font-display);font-size:clamp(100px,18vw,260px);
+  font-weight:700;font-style:italic;color:#ffffff05;
+  white-space:nowrap;pointer-events:none;user-select:none;letter-spacing:-.02em;
+}
+.hero-tag{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.25em;
+  color:var(--yellow);text-transform:uppercase;margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-tag::before{content:'';width:32px;height:1px;background:var(--yellow)}
+.hero-title{
+  font-family:var(--font-display);font-size:clamp(52px,9vw,130px);
+  font-weight:700;line-height:.9;color:var(--white);margin-bottom:16px;
+  letter-spacing:-.02em;
+}
+.hero-title span{color:var(--yellow);font-style:italic}
+.hero-sub{
+  font-size:16px;color:#888;max-width:520px;line-height:1.7;
+  margin-bottom:40px;font-weight:300;
+}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn-yellow{
+  background:var(--yellow);color:var(--black);border:none;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;padding:14px 28px;cursor:pointer;transition:all .2s;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-yellow:hover{background:var(--yellow-dim)}
+.btn-outline{
+  background:transparent;color:var(--white);border:1px solid #444;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;padding:14px 28px;cursor:pointer;transition:all .2s;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-outline:hover{border-color:var(--yellow);color:var(--yellow)}
+.hero-scroll{
+  position:absolute;right:48px;bottom:72px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.hero-scroll span{
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;
+  color:#555;text-transform:uppercase;writing-mode:vertical-rl;
+}
+.hero-scroll-line{width:1px;height:48px;background:linear-gradient(var(--yellow),transparent);animation:sc 2s infinite}
+@keyframes sc{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* COMMUNITY BANNER — colorful strip */
+.community-strip{
+  background:var(--yellow);padding:14px 48px;
+  display:flex;gap:40px;overflow:hidden;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--black);white-space:nowrap;
+}
+.community-strip span{flex-shrink:0}
+
+/* SECTIONS */
+.pub-section{max-width:1100px;margin:0 auto;padding:80px 48px}
+.section-label{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.25em;
+  color:var(--yellow);text-transform:uppercase;
+  display:flex;align-items:center;gap:14px;margin-bottom:16px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:#222}
+.section-title{
+  font-family:var(--font-display);font-size:clamp(32px,4.5vw,60px);
+  font-weight:700;color:var(--white);margin-bottom:40px;line-height:1;
+}
+
+/* FILM SECTION */
+.film-grid{display:grid;grid-template-columns:2fr 3fr;gap:60px;align-items:start}
+.film-synopsis{
+  font-size:17px;line-height:1.9;color:#bbb;font-weight:300;margin-bottom:28px;
+  font-family:var(--font-display);font-style:italic;
+  border-left:3px solid var(--yellow);padding-left:20px;
+}
+.film-body{font-size:15px;line-height:1.8;color:#888;margin-bottom:32px}
+.film-meta{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1a1a1a;border:1px solid #1a1a1a}
+.film-meta-item{background:var(--black);padding:14px 16px}
+.meta-label{font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;color:#555;text-transform:uppercase;margin-bottom:4px}
+.meta-val{font-size:13px;color:#ccc}
+
+/* Stills */
+.stills-area{display:flex;flex-direction:column;gap:4px}
+.still-block{
+  background:#111;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;color:#333;
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+}
+.still-block.tall{height:280px}
+.still-block.short{height:180px}
+.still-block span{font-size:24px;opacity:.3}
+
+/* COMMUNITIES */
+.communities-bg{background:var(--grey);border-top:1px solid #222;border-bottom:1px solid #222;padding:80px 0}
+.comm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:3px;margin-top:40px}
+.comm-card{
+  background:var(--black);border:1px solid #1a1a1a;padding:28px 22px;
+  position:relative;overflow:hidden;transition:border-color .2s;
+}
+.comm-card:hover{border-color:#333}
+.comm-card::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:0;
+  background:var(--yellow);transition:height .3s;
+}
+.comm-card:hover::before{height:100%}
+.comm-icon{font-size:28px;margin-bottom:14px;opacity:.7}
+.comm-name{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--white);margin-bottom:4px}
+.comm-region{font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;color:var(--yellow);text-transform:uppercase;margin-bottom:10px}
+.comm-desc{font-size:12px;color:#666;line-height:1.6}
+
+/* PODCAST */
+.podcast-section{background:var(--yellow);padding:80px 0}
+.podcast-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.podcast-label{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.25em;
+  color:var(--black);text-transform:uppercase;margin-bottom:12px;opacity:.6;
+}
+.podcast-title{
+  font-family:var(--font-display);font-size:clamp(36px,5vw,64px);
+  font-weight:700;color:var(--black);line-height:.95;margin-bottom:24px;
+}
+.podcast-body{font-size:15px;color:#333;line-height:1.7;margin-bottom:32px}
+.podcast-platforms{display:flex;gap:12px;flex-wrap:wrap}
+.platform-pill{
+  background:var(--black);color:var(--yellow);padding:10px 18px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+}
+.platform-pill:hover{background:#111}
+.podcast-visual{
+  background:var(--black);aspect-ratio:1;display:flex;align-items:center;
+  justify-content:center;flex-direction:column;gap:20px;position:relative;overflow:hidden;
+}
+.podcast-logo-big{
+  width:120px;height:120px;border-radius:50%;background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;font-size:48px;overflow:hidden;
+}
+.podcast-logo-big img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.podcast-waveform{display:flex;gap:3px;align-items:center;height:40px}
+.waveform-bar{
+  width:3px;background:var(--yellow);border-radius:2px;opacity:.6;
+  animation:wave 1.2s ease-in-out infinite;
+}
+.waveform-bar:nth-child(2){animation-delay:.1s;height:60%}
+.waveform-bar:nth-child(3){animation-delay:.2s;height:90%}
+.waveform-bar:nth-child(4){animation-delay:.3s;height:50%}
+.waveform-bar:nth-child(5){animation-delay:.4s;height:100%}
+.waveform-bar:nth-child(6){animation-delay:.5s;height:70%}
+.waveform-bar:nth-child(7){animation-delay:.6s;height:40%}
+.waveform-bar:nth-child(8){animation-delay:.7s;height:80%}
+.waveform-bar:nth-child(9){animation-delay:.8s;height:55%}
+@keyframes wave{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:3px}
+.team-card{background:var(--grey);border:1px solid #1a1a1a;padding:28px 20px;transition:background .2s}
+.team-card:hover{background:#222}
+.team-avatar{
+  width:60px;height:60px;border-radius:50%;background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:22px;font-weight:700;
+  color:var(--black);margin-bottom:16px;
+}
+.team-name{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--white);margin-bottom:4px}
+.team-role{font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;color:var(--yellow);text-transform:uppercase;margin-bottom:6px}
+.team-community{font-size:12px;color:#555}
+
+/* CONTACT */
+.contact-bar{
+  background:var(--black);border-top:1px solid #1a1a1a;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:60px 48px;gap:40px;flex-wrap:wrap;
+}
+.contact-text h3{
+  font-family:var(--font-display);font-size:clamp(28px,4vw,52px);
+  font-weight:700;color:var(--white);margin-bottom:8px;
+}
+.contact-text p{font-size:14px;color:#555;max-width:400px;line-height:1.6}
+.contact-email{
+  font-family:var(--font-display);font-size:22px;font-style:italic;
+  color:var(--yellow);text-decoration:none;border-bottom:1px solid #333;padding-bottom:4px;
+  transition:border-color .2s;
+}
+.contact-email:hover{border-color:var(--yellow)}
+.pub-footer{
+  background:#050505;border-top:1px solid #111;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 48px;flex-wrap:wrap;gap:12px;
+}
+.footer-logo{display:flex;align-items:center;gap:10px}
+.footer-logo-dot{width:28px;height:28px;border-radius:50%;background:var(--yellow);overflow:hidden}
+.footer-logo-dot img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.footer-name{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:#444;text-transform:uppercase}
+.footer-copy{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:#333;text-transform:uppercase}
+
+/* ══ LOGIN ══ */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black);position:relative}
+.login-deco{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,#F5D80012 0%,transparent 70%);
+  pointer-events:none;
+}
+.login-card{
+  position:relative;z-index:5;width:360px;
+  background:var(--grey);border:1px solid #2a2a2a;padding:48px 40px;
+}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px}
+.login-logo-img{width:52px;height:52px;border-radius:50%;background:var(--yellow);overflow:hidden}
+.login-logo-img img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.login-title{
+  font-family:var(--font-display);font-size:22px;font-weight:700;
+  color:var(--white);text-align:center;margin-bottom:4px;
+}
+.login-sub{
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;
+  color:#555;text-transform:uppercase;text-align:center;margin-bottom:36px;
+}
+.login-field{margin-bottom:16px}
+.login-label{
+  display:block;font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;
+  color:#555;text-transform:uppercase;margin-bottom:8px;
+}
+.login-input{
+  width:100%;background:#111;border:1px solid #2a2a2a;
+  padding:12px 14px;color:var(--white);font-family:var(--font-ui);font-size:14px;
+  outline:none;transition:border-color .2s;
+}
+.login-input:focus{border-color:var(--yellow)}
+.login-input::placeholder{color:#333}
+.login-btn{
+  width:100%;padding:14px;background:var(--yellow);border:none;
+  color:var(--black);font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.15em;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:all .2s;
+}
+.login-btn:hover{background:var(--yellow-dim)}
+.login-error{font-size:12px;color:#e55;text-align:center;margin-top:12px;font-family:var(--font-mono);display:none}
+.login-back{
+  display:block;text-align:center;margin-top:20px;
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;
+  color:#444;text-transform:uppercase;cursor:pointer;transition:color .2s;
+}
+.login-back:hover{color:var(--yellow)}
+
+/* ══ DASHBOARD ══ */
+.dash-layout{display:flex;min-height:100vh}
+.dash-sidebar{
+  width:240px;flex-shrink:0;background:var(--grey);
+  display:flex;flex-direction:column;position:sticky;top:0;height:100vh;
+  border-right:1px solid #1a1a1a;
+}
+.dash-logo{padding:24px 20px 20px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;gap:12px}
+.dash-logo-img{width:40px;height:40px;border-radius:50%;background:var(--yellow);overflow:hidden;flex-shrink:0}
+.dash-logo-img img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.dash-logo-text{flex:1;min-width:0}
+.dash-logo-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-logo-sub{font-family:var(--font-mono);font-size:8px;letter-spacing:.15em;color:#555;text-transform:uppercase}
+.dash-nav{flex:1;padding:12px 0}
+.dash-nav-section{font-family:var(--font-mono);font-size:8px;letter-spacing:.2em;color:#333;text-transform:uppercase;padding:12px 20px 6px}
+.dash-nav-item{
+  display:flex;align-items:center;gap:10px;padding:10px 20px;
+  color:#666;font-size:13px;cursor:pointer;transition:all .2s;border-left:2px solid transparent;
+}
+.dash-nav-item:hover{background:#222;color:#ccc}
+.dash-nav-item.active{background:#1a1a1a;color:var(--yellow);border-left-color:var(--yellow)}
+.dash-footer{padding:16px 20px;border-top:1px solid #1a1a1a}
+.dash-user{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.dash-user-avatar{
+  width:32px;height:32px;border-radius:50%;background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--black);font-weight:700;flex-shrink:0;
+}
+.dash-user-name{font-size:12px;color:#666}
+.dash-logout{
+  width:100%;background:transparent;border:1px solid #2a2a2a;
+  color:#444;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;padding:8px;cursor:pointer;transition:all .2s;
+}
+.dash-logout:hover{border-color:var(--yellow);color:var(--yellow)}
+
+.dash-main{flex:1;overflow:auto;background:var(--black)}
+.dash-topbar{
+  background:var(--grey);border-bottom:1px solid #1a1a1a;
+  padding:20px 28px;display:flex;align-items:center;justify-content:space-between;
+}
+.dash-page-title{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--white)}
+.dash-actions{display:flex;gap:10px}
+.btn-dash{
+  background:var(--yellow);border:none;color:var(--black);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:9px 18px;cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.btn-dash:hover{background:var(--yellow-dim)}
+.btn-dash-out{
+  background:transparent;border:1px solid #2a2a2a;color:#666;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:9px 18px;cursor:pointer;transition:all .2s;
+}
+.btn-dash-out:hover{border-color:var(--yellow);color:var(--yellow)}
+
+/* Content */
+.dash-content{padding:24px 28px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.stat-card{background:var(--grey);border:1px solid #1a1a1a;padding:18px 20px}
+.stat-label{font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;color:#555;text-transform:uppercase;margin-bottom:8px}
+.stat-val{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--white);margin-bottom:4px}
+.stat-sub{font-size:11px;color:#444}
+
+/* Search */
+.search-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.search-input{
+  flex:1;min-width:180px;background:var(--grey);border:1px solid #2a2a2a;
+  padding:10px 14px;font-family:var(--font-ui);font-size:13px;color:var(--white);outline:none;transition:border-color .2s;
+}
+.search-input:focus{border-color:var(--yellow)}
+.search-input::placeholder{color:#444}
+.search-select{
+  background:var(--grey);border:1px solid #2a2a2a;padding:10px 12px;
+  font-family:var(--font-ui);font-size:12px;color:#888;outline:none;cursor:pointer;
+}
+
+/* Table */
+.table-wrap{background:var(--grey);border:1px solid #1a1a1a;overflow:hidden}
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{
+  background:#0f0f0f;padding:11px 14px;text-align:left;
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.15em;
+  color:#444;text-transform:uppercase;border-bottom:1px solid #1a1a1a;white-space:nowrap;
+}
+.data-table td{
+  padding:13px 14px;border-bottom:1px solid #111;
+  font-size:13px;color:var(--white);vertical-align:middle;
+}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#111;cursor:pointer}
+.badge{
+  display:inline-block;padding:3px 9px;
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+}
+.badge-green{background:#0a2a14;color:#4ade80}
+.badge-yellow{background:#2a1f00;color:#f5d800}
+.badge-red{background:#2a0a0a;color:#f87171}
+.badge-blue{background:#0a1228;color:#60a5fa}
+.badge-grey{background:#1a1a1a;color:#555}
+.row-btn{
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.1em;color:var(--yellow);
+  text-transform:uppercase;background:none;border:none;cursor:pointer;padding:4px 8px;
+  border:1px solid transparent;transition:all .2s;
+}
+.row-btn:hover{border-color:#F5D80033;background:#F5D80011}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;inset:0;background:#000000cc;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--grey);border:1px solid #2a2a2a;
+  width:580px;max-width:92vw;max-height:88vh;overflow-y:auto;
+  transform:translateY(8px);transition:transform .2s;
+}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 22px;border-bottom:1px solid #1a1a1a;
+  position:sticky;top:0;background:var(--grey);z-index:1;
+}
+.modal-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white)}
+.modal-close{background:none;border:none;color:#555;font-size:22px;cursor:pointer;padding:4px 8px;line-height:1;transition:color .2s}
+.modal-close:hover{color:var(--white)}
+.modal-body{padding:22px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-row.single{grid-template-columns:1fr}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-label{font-family:var(--font-mono);font-size:8px;letter-spacing:.2em;color:#555;text-transform:uppercase}
+.form-input,.form-select,.form-textarea{
+  background:#111;border:1px solid #2a2a2a;padding:10px 12px;
+  font-family:var(--font-ui);font-size:13px;color:var(--white);
+  outline:none;transition:border-color .2s;width:100%;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--yellow)}
+.form-input::placeholder,.form-textarea::placeholder{color:#333}
+.form-textarea{resize:vertical;min-height:72px}
+.form-file-area{
+  border:1px dashed #2a2a2a;padding:18px;text-align:center;
+  background:#111;cursor:pointer;transition:all .2s;
+}
+.form-file-area:hover{border-color:var(--yellow);background:#1a1600}
+.form-file-label{font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;color:#555;text-transform:uppercase;display:block;margin-bottom:4px}
+.form-file-sub{font-size:11px;color:#333}
+.modal-actions{
+  display:flex;justify-content:flex-end;gap:10px;
+  padding:14px 22px;border-top:1px solid #1a1a1a;
+  position:sticky;bottom:0;background:var(--grey);
+}
+
+/* Detail view */
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#111;margin-bottom:16px;border:1px solid #111}
+.detail-item{background:var(--grey);padding:13px 16px}
+.detail-lbl{font-family:var(--font-mono);font-size:8px;letter-spacing:.15em;color:#555;text-transform:uppercase;margin-bottom:4px}
+.detail-val{font-size:14px;color:var(--white)}
+.file-card{border:1px solid #1a1a1a;padding:13px 16px;margin-top:14px;display:flex;align-items:center;gap:14px;background:#111}
+.file-icon{font-size:22px;opacity:.5;flex-shrink:0}
+.file-name{font-size:13px;color:var(--white);margin-bottom:2px}
+.file-meta{font-family:var(--font-mono);font-size:8px;letter-spacing:.1em;color:#555}
+
+/* Empty */
+.empty-state{text-align:center;padding:56px 24px}
+.empty-icon{font-size:32px;opacity:.15;margin-bottom:10px}
+.empty-text{font-family:var(--font-display);font-size:18px;font-style:italic;color:#555}
+.empty-sub{font-size:12px;color:#333;margin-top:6px}
+
+/* Notification */
+.notif{
+  position:fixed;bottom:24px;right:24px;z-index:200;
+  background:var(--yellow);color:var(--black);padding:13px 20px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.notif.show{opacity:1}
+
+@media(max-width:900px){
+  .pub-nav{padding:16px 20px}
+  .pub-hero{padding:0 20px 60px}
+  .pub-section{padding:48px 20px}
+  .film-grid{grid-template-columns:1fr}
+  .podcast-inner{grid-template-columns:1fr;gap:40px}
+  .contact-bar{padding:40px 20px;flex-direction:column;text-align:center}
+  .pub-footer{padding:16px 20px;flex-direction:column;gap:8px;text-align:center}
+  .community-strip{padding:14px 20px}
+  .dash-sidebar{display:none}
+  .stat-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ PUBLIC SITE ═══════════════ -->
+<div id="view-public" class="active">
+
+  <!-- NAV -->
+  <nav class="pub-nav">
+    <a class="pub-logo-wrap" href="#">
+      <div class="pub-logo-circle"><img id="nav-logo" src="" alt="BYK"/></div>
+      <div>
+        <div class="pub-logo-text">Bring Your Kete</div>
+        <div class="pub-logo-sub">Film & Podcast</div>
+      </div>
+    </a>
+    <div class="pub-nav-links">
+      <a href="#film">The Film</a>
+      <a href="#communities">Communities</a>
+      <a href="#podcast">Podcast</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.instagram.com/bringyourkete" target="_blank" 
+   style="color:#aaa;transition:color .2s;display:flex;align-items:center"
+   onmouseover="this.style.color='#F5D800'" 
+   onmouseout="this.style.color='#aaa'">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </svg>
+</a>
+      <button class="pub-access-btn" onclick="showView('login')">Team Access →</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="pub-hero">
+    <div class="hero-tag">New Zealand Documentary</div>
+    <h1 class="pub-hero-title" style="font-family:'Playfair Display',serif;font-size:clamp(52px,9vw,130px);font-weight:700;line-height:.9;color:#FAFAF5;margin-bottom:16px;letter-spacing:-.02em">
+      Bring<br>Your <span style="color:#F5D800;font-style:italic">Kete</span>
+    </h1>
+    <p class="hero-sub">In Auckland, from every corner of the world, five communities, each hosting their own show on Planet FM, share the magic that unfolds when you live between cultures.<br>What shapes their view of the world/Te Ao and of Aotearoa New Zealand?<br>What about you? How does your culture shape your world?</p>
+    <div class="hero-ctas">
+      <a href="#film" class="btn-yellow">Discover the Film →</a>
+      <a href="#podcast" class="btn-outline">Listen to the Podcast ♬</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </div>
+
+  <!-- COMMUNITY STRIP -->
+  <div class="community-strip">
+    <span>Te Ao ✦</span><span>Communities ✦</span><span>Auckland ✦</span>
+    <span>Māfana ✦</span><span>Cultural Identity ✦</span><span>Togetherness ✦</span>
+    <span>Sharing ✦</span><span>Knowledge ✦</span><span>Aotearoa ✦</span>
+    <span>Māori ✦</span><span>Kiwi✦</span><span>Curiosity ✦</span>
+    <span>Cooking, Music and dDance✦</span><span>View of the world ✦</span><span>Understanding ✦</span>
+  </div>
+
+  <!-- FILM -->
+  <div id="film" class="pub-section">
+    <div class="section-label">The Documentary</div>
+    <div class="film-grid">
+      <div>
+        <h2 class="section-title">How do we make sense of the world?</h2>
+        <p class="film-synopsis"> Within Planet FM, a community radio station in Auckland, communities from around the globe intersect. Five of them invite us into their programmes and their communities—speaking not only of where they come from, but also of the country and the city that have welcomed them, offering a new perspective on Aotearoa.</p>
+        <p class="film-body">Through discovering each community’s values and talents, the film explores how we experience the world as human beings. The insight each presenter gains from living in a different culture reveals how deeply the cultures we grow up in shape the way we act, perceive, and relate to others. As experiences and cultures intersect, a question gradually emerges: how can we draw on this shared human richness?</p>
+        <div class="film-meta">
+          <div class="film-meta-item"><div class="meta-label">Director</div><div class="meta-val">Blandine Massiet du Biest</div></div>
+          <div class="film-meta-item"><div class="meta-label">Production</div><div class="meta-val">Bring Your Kete</div></div>
+          <div class="film-meta-item"><div class="meta-label">Country</div><div class="meta-val">Aotearoa New Zealand</div></div>
+          <div class="film-meta-item"><div class="meta-label">Year</div><div class="meta-val">2025</div></div>
+          <div class="film-meta-item"><div class="meta-label">Duration</div><div class="meta-val">TBC</div></div>
+          <div class="film-meta-item"><div class="meta-label">Language</div><div class="meta-val">English / Te Reo Māori</div></div>
+        </div>
+      </div>
+ <div class="stills-area">
+  <img src="Malayalam_Site.png" style="width:100%;height:280px;object-fit:cover"/>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px">
+    <img src="Dalmatian_Site.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Akwaaba_Site.png" style="width:100%;height:180px;object-fit:cover"/>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px">
+    <img src="Moui_Site.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Latin_Site.png" style="width:100%;height:180px;object-fit:cover"/>
+  </div>
+</div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMUNITIES -->
+  <div id="communities" class="communities-bg">
+    <div style="max-width:1100px;margin:0 auto;padding:0 48px">
+      <div class="section-label">The Communities</div>
+      <h2 class="section-title">Many peoples, one film</h2>
+      <div class="comm-grid">
+        <div class="comm-card"><div class="comm-name">Tonga</div><div class="comm-region">MO'ui Lelei Toulekeleka</div><div class="comm-desc">Hosted by Taani, this programme is dedicated to older people and their wellbeing. This Tongan group carries many stories and a deep sense of warmth—māfana—as explaining the joy they find in coming together, and which they share with us.</div></div>
+        <div class="comm-card"><div class="comm-name">Dalmatian</div><div class="comm-region">Dalmacian Radio</div><div class="comm-desc">Nick hosts the programme Dalmatian Radio, playing music from the different regions that once made up the former Yugoslavia. He opens the door to a community that has lived in New Zealand for several generations, keeping its values and traditions very much alive.</div></div>
+        <div class="comm-card"><div class="comm-name">Malayalam</div><div class="comm-region">Malayam Radio</div><div class="comm-desc">Like many members of their community, Sindhu and George come from Kerala. They produce radio plays, music, and news for their community in Malayalam. A programme as vibrant as their community, which comes together throughout the events that mark the year.</div></div>
+        <div class="comm-card"><div class="comm-name">Latin America</div><div class="comm-region">Latin Kiwi</div><div class="comm-desc">Cecilia masterfully hosts her programme “Latin Kiwi” in Spanish, speaking to the vibrant Latin American community. She keeps them up to date with local events and invites us to dance and celebrate life the way Latin Americans do so well.</div></div>
+        <div class="comm-card"><div class="comm-name">Ghanaian</div><div class="comm-region">Radio Akwaaba</div><div class="comm-desc">Kwado and Kwabena host their radio programme “Radio Akwaaba” in English and in Akan. Together, with the Ghanaian Association of New Zealand, they bring their community together—building connections across generations while living in Auckland and contributing their diverse skills to their adopted country.</div></div>
+        <div class="comm-card"><div class="comm-name">Auckland</div><div class="comm-region">A multicultural city.</div><div class="comm-desc">Auckland is a character in its own right in this film. A city where 42% of the population was born overseas, it is a vibrant melting pot where stories, music, dance, and food intertwine—offering the perfect setting to take a closer look at how our cultural identities shape the way we see the world, and how, by exploring the diversity of our values and talents more deeply, we can all learn from one another.</div></div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- PODCAST -->
+  <div id="podcast" class="podcast-section">
+    <div class="podcast-inner">
+      <div>
+        <div class="podcast-label">Also from Bring Your Kete</div>
+        <h2 class="podcast-title">The Podcast</h2>
+        <p class="podcast-body">Alongside the documentary, <strong>Bring Your Kete</strong> is also a podcast — longer conversations with the people at the heart of the film. Each episode goes deeper into a single story, community, or question that the film opens up.</p>
+        <p class="podcast-body" style="margin-bottom:28px">Episodes drop alongside the film's release. Subscribe now so you don't miss the first conversation.</p>
+        <div class="podcast-platforms">
+          <div class="platform-pill">Spotify</div>
+          <div class="platform-pill">Apple Podcasts</div>
+          <div class="platform-pill">RSS Feed</div>
+          <div class="platform-pill">Coming Soon</div>
+        </div>
+      </div>
+      <div class="podcast-visual">
+        <div class="podcast-logo-big"><img id="podcast-logo" src="" alt="BYK"/></div>
+        <div class="podcast-waveform">
+          <div class="waveform-bar" style="height:40%"></div>
+          <div class="waveform-bar"></div>
+          <div class="waveform-bar"></div>
+          <div class="waveform-bar"></div>
+          <div class="waveform-bar"></div>
+          <div class="waveform-bar"></div>
+          <div class="waveform-bar"></div>
+          <div class="waveform-bar"></div>
+          <div class="waveform-bar"></div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;color:#555;text-transform:uppercase">New episodes coming</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div id="team" class="pub-section">
+    <div class="section-label">The Team</div>
+    <h2 class="section-title">Behind the film</h2>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-avatar">D</div><div class="team-name">Director</div><div class="team-role">Direction & Vision</div><div class="team-community">Blandine Massiet du Biest</div></div>
+      <div class="team-card"><div class="team-avatar">P</div><div class="team-name">Producer</div><div class="team-role">Production</div><div class="team-community">Nia Phipps</div></div>
+      <div class="team-card"><div class="team-avatar">C</div><div class="team-name">Camera</div><div class="team-role">Director of Photography</div><div class="team-community">Sarah Lebreton</div></div>
+      <div class="team-card"><div class="team-avatar">E</div><div class="team-name">Editor</div><div class="team-role">Post Production</div><div class="team-community">Blandine Massiet du Biest</div></div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact" class="contact-bar">
+    <div class="contact-text">
+      <h3>Get in touch</h3>
+      <p style="margin-top:12px">For press, screening enquiries, partnership or community involvement — we'd love to hear from you.</p>
+    </div>
+    <a href="mailto:hello@bringyourkete.nz" class="contact-email">hello@bringyourkete.nz</a>
+  </div>
+  <div class="pub-footer">
+    <div class="footer-logo">
+      <div class="footer-logo-dot"><img id="footer-logo" src="" alt="BYK"/></div>
+      <span class="footer-name" style="margin-left:10px">Bring Your Kete</span>
+    </div>
+    <span class="footer-copy">© 2025 Bring Your Kete Production — Aotearoa New Zealand</span>
+  </div>
+</div>
+
+<!-- ═══════════════ LOGIN ═══════════════ -->
+<div id="view-login">
+  <div class="login-wrap">
+    <div class="login-deco"></div>
+    <div class="login-card">
+      <div class="login-logo"><div class="login-logo-img"><img id="login-logo" src="" alt="BYK"/></div></div>
+      <div class="login-title">Production Hub</div>
+      <div class="login-sub">Team access only</div>
+      <div class="login-field">
+        <label class="login-label">Email</label>
+        <input class="login-input" id="login-email" type="email" placeholder="you@bringyourkete.nz"/>
+      </div>
+      <div class="login-field">
+        <label class="login-label">Password</label>
+        <input class="login-input" id="login-pass" type="password" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter')doLogin()"/>
+      </div>
+      <button class="login-btn" onclick="doLogin()">Sign In →</button>
+      <div class="login-error" id="login-error">Incorrect email or password</div>
+      <span class="login-back" onclick="showView('public')">← Back to site</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div id="view-dashboard">
+  <div class="dash-layout">
+    <aside class="dash-sidebar">
+      <div class="dash-logo">
+        <div class="dash-logo-img"><img id="dash-logo" src="" alt="BYK"/></div>
+        <div class="dash-logo-text">
+          <div class="dash-logo-title">Bring Your Kete</div>
+          <div class="dash-logo-sub">Production Hub</div>
+        </div>
+      </div>
+      <nav class="dash-nav">
+        <div class="dash-nav-section">Manage</div>
+        <div class="dash-nav-item active" id="nav-overview" onclick="showTab('overview')">◈ &nbsp;Overview</div>
+        <div class="dash-nav-item" id="nav-consents" onclick="showTab('consents')">✦ &nbsp;Filming Consents</div>
+        <div class="dash-nav-item" id="nav-music" onclick="showTab('music')">♬ &nbsp;Music Rights</div>
+        <div class="dash-nav-section" style="margin-top:8px">Site</div>
+        <div class="dash-nav-item" onclick="showView('public')">↗ &nbsp;View Public Site</div>
+      </nav>
+      <div class="dash-footer">
+        <div class="dash-user">
+          <div class="dash-user-avatar" id="dash-avatar">P</div>
+          <div class="dash-user-name" id="dash-username">Production</div>
+        </div>
+        <button class="dash-logout" onclick="doLogout()">Sign Out</button>
+      </div>
+    </aside>
+
+    <main class="dash-main">
+
+      <!-- OVERVIEW -->
+      <div id="tab-overview">
+        <div class="dash-topbar">
+          <div class="dash-page-title">Overview</div>
+          <div class="dash-actions">
+            <button class="btn-dash-out" onclick="showTab('consents')">Consents →</button>
+            <button class="btn-dash-out" onclick="showTab('music')">Music Rights →</button>
+          </div>
+        </div>
+        <div class="dash-content">
+          <div class="stat-grid" id="overview-stats"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:.2em;color:#444;text-transform:uppercase;margin-bottom:14px">Recent Consents</div>
+              <div id="overview-consents"></div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:.2em;color:#444;text-transform:uppercase;margin-bottom:14px">Music — Action Required</div>
+              <div id="overview-music"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONSENTS -->
+      <div id="tab-consents" style="display:none">
+        <div class="dash-topbar">
+          <div class="dash-page-title">Filming Consents</div>
+          <div class="dash-actions">
+            <button class="btn-dash-out" onclick="exportCSV('consents')">Export CSV</button>
+            <button class="btn-dash" onclick="openConsentForm()">+ New Consent</button>
+          </div>
+        </div>
+        <div class="dash-content">
+          <div class="search-bar">
+            <input class="search-input" id="consent-search" placeholder="Search by name or community…" oninput="renderConsents()"/>
+            <select class="search-select" id="consent-status" onchange="renderConsents()">
+              <option value="">All statuses</option>
+              <option value="signed">Signed</option>
+              <option value="pending">Pending</option>
+              <option value="missing">Missing</option>
+            </select>
+            <input class="search-input" id="consent-date" type="date" style="max-width:160px;flex:none" onchange="renderConsents()"/>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr>
+                <th>Name</th><th>Community</th><th>Role</th>
+                <th>Date Signed</th><th>Status</th><th>PDF</th><th></th>
+              </tr></thead>
+              <tbody id="consents-tbody"></tbody>
+            </table>
+          </div>
+          <div id="consents-empty" class="empty-state" style="display:none">
+            <div class="empty-icon">✦</div>
+            <div class="empty-text">No consents found</div>
+            <div class="empty-sub">Adjust your search or create a new consent form</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MUSIC -->
+      <div id="tab-music" style="display:none">
+        <div class="dash-topbar">
+          <div class="dash-page-title">Music Rights</div>
+          <div class="dash-actions">
+            <button class="btn-dash-out" onclick="exportCSV('music')">Export CSV</button>
+            <button class="btn-dash" onclick="openMusicForm()">+ New Track</button>
+          </div>
+        </div>
+        <div class="dash-content">
+          <div class="search-bar">
+            <input class="search-input" id="music-search" placeholder="Search by title or composer…" oninput="renderMusic()"/>
+            <select class="search-select" id="music-status" onchange="renderMusic()">
+              <option value="">All statuses</option>
+              <option value="cleared">Cleared</option>
+              <option value="negotiating">Negotiating</option>
+              <option value="pending">Pending</option>
+              <option value="expired">Expired</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr>
+                <th>Title</th><th>Composer</th><th>Artist</th>
+                <th>Licence Type</th><th>Territory</th><th>Status</th><th></th>
+              </tr></thead>
+              <tbody id="music-tbody"></tbody>
+            </table>
+          </div>
+          <div id="music-empty" class="empty-state" style="display:none">
+            <div class="empty-icon">♬</div>
+            <div class="empty-text">No tracks found</div>
+            <div class="empty-sub">Adjust your search or add a new track</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- CONSENT FORM MODAL -->
+<div class="modal-overlay" id="modal-cf">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="cf-title">New Consent</div>
+      <button class="modal-close" onclick="closeModal('modal-cf')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Full Name *</label><input class="form-input" id="cf-name" placeholder="First Last"/></div>
+        <div class="form-field"><label class="form-label">Community</label><input class="form-input" id="cf-community" placeholder="Community, group, or region…"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Role in Film</label><input class="form-input" id="cf-role" placeholder="Participant, witness…"/></div>
+        <div class="form-field"><label class="form-label">Status *</label>
+          <select class="form-select" id="cf-status">
+            <option value="pending">Pending</option>
+            <option value="signed">Signed</option>
+            <option value="missing">Missing</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Phone</label><input class="form-input" id="cf-phone" placeholder="+64 21 000 0000"/></div>
+        <div class="form-field"><label class="form-label">Email</label><input class="form-input" id="cf-email" type="email" placeholder="email@example.com"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Date Signed</label><input class="form-input" id="cf-date" type="date"/></div>
+      </div>
+      <div class="form-row single">
+        <div class="form-field"><label class="form-label">Notes</label><textarea class="form-textarea" id="cf-notes" placeholder="Context, conditions, remarks…"></textarea></div>
+      </div>
+      <div class="form-row single">
+        <div class="form-field">
+          <label class="form-label">Signed PDF</label>
+          <div class="form-file-area" onclick="document.getElementById('cf-file').click()">
+            <span class="form-file-label">Attach document</span>
+            <span class="form-file-sub" id="cf-file-name">PDF, JPG, PNG — click to select</span>
+            <input type="file" id="cf-file" style="display:none" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFile(this,'cf-file-name')"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-dash-out" onclick="closeModal('modal-cf')">Cancel</button>
+      <button class="btn-dash" onclick="saveConsent()">Save Consent</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONSENT DETAIL MODAL -->
+<div class="modal-overlay" id="modal-cd">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="cd-name">Consent Detail</div>
+      <button class="modal-close" onclick="closeModal('modal-cd')">×</button>
+    </div>
+    <div class="modal-body" id="cd-body"></div>
+    <div class="modal-actions">
+      <button class="btn-dash-out" onclick="deleteConsent()">Delete</button>
+      <button class="btn-dash-out" onclick="editConsent()">Edit</button>
+      <button class="btn-dash" onclick="notify('PDF export available after Supabase integration')">Export PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC FORM MODAL -->
+<div class="modal-overlay" id="modal-mf">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="mf-title">New Track</div>
+      <button class="modal-close" onclick="closeModal('modal-mf')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Track Title *</label><input class="form-input" id="mf-track" placeholder="Song name"/></div>
+        <div class="form-field"><label class="form-label">Composer</label><input class="form-input" id="mf-composer" placeholder="Composer name"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Artist / Performer</label><input class="form-input" id="mf-artist" placeholder="Artist or band"/></div>
+        <div class="form-field"><label class="form-label">Rights Holder</label><input class="form-input" id="mf-rights" placeholder="Label, publisher, APRA…"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Licence Type</label>
+          <select class="form-select" id="mf-licence">
+            <option value="sync">Synchronisation</option>
+            <option value="master">Master</option>
+            <option value="sync+master">Sync + Master</option>
+            <option value="free">Royalty Free</option>
+            <option value="cc">Creative Commons</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-field"><label class="form-label">Clearance Status *</label>
+          <select class="form-select" id="mf-status">
+            <option value="pending">Pending</option>
+            <option value="negotiating">Negotiating</option>
+            <option value="cleared">Cleared</option>
+            <option value="expired">Expired</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Territory</label><input class="form-input" id="mf-territory" placeholder="Worldwide, NZ, ANZ…"/></div>
+        <div class="form-field"><label class="form-label">Duration</label><input class="form-input" id="mf-duration" placeholder="Unlimited, 5 years…"/></div>
+      </div>
+      <div class="form-row single">
+        <div class="form-field"><label class="form-label">Notes</label><textarea class="form-textarea" id="mf-notes" placeholder="Contract number, conditions, contacts…"></textarea></div>
+      </div>
+      <div class="form-row single">
+        <div class="form-field">
+          <label class="form-label">Licence Documents</label>
+          <div class="form-file-area" onclick="document.getElementById('mf-file').click()">
+            <span class="form-file-label">Attach documents</span>
+            <span class="form-file-sub" id="mf-file-name">Contract, licence, correspondence</span>
+            <input type="file" id="mf-file" style="display:none" accept=".pdf,.doc,.docx,.jpg,.png" onchange="handleFile(this,'mf-file-name')"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-dash-out" onclick="closeModal('modal-mf')">Cancel</button>
+      <button class="btn-dash" onclick="saveMusic()">Save Track</button>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC DETAIL MODAL -->
+<div class="modal-overlay" id="modal-md">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="md-title">Track Detail</div>
+      <button class="modal-close" onclick="closeModal('modal-md')">×</button>
+    </div>
+    <div class="modal-body" id="md-body"></div>
+    <div class="modal-actions">
+      <button class="btn-dash-out" onclick="deleteMusic()">Delete</button>
+      <button class="btn-dash-out" onclick="editMusic()">Edit</button>
+      <button class="btn-dash" onclick="notify('PDF export available after Supabase integration')">Export PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+// ─── SUPABASE CONFIG ───────────────────────────────────────────────────────
+// ⚠️  Remplace ces deux valeurs par les tiennes (copiées depuis Supabase → Settings → API)
+const SUPABASE_URL  = 'https://vptsmrhxberpybegoicm.supabase.co';       // ex: https://xxxx.supabase.co
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdHNtcmh4YmVycHliZWdvaWNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NjU0NjgsImV4cCI6MjA5MzI0MTQ2OH0.qTg5BaRUFX-eETsCxBq20qsWJF54_CVXWUhAdNtiDo4';   // clé "anon public"
+
+async function sbFetch(path, options={}){
+  const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': options.prefer || 'return=representation',
+      ...options.headers
+    },
+    ...options
+  });
+  if(!res.ok){ const err=await res.text(); console.error('Supabase error:',err); return null; }
+  const text = await res.text();
+  return text ? JSON.parse(text) : [];
+}
+
+// Upload d'un fichier dans le bucket Supabase Storage "documents"
+async function uploadFile(file, folder){
+  if(!file) return { name:'', url:'' };
+  const path = folder + '/' + Date.now() + '_' + file.name;
+  const res = await fetch(SUPABASE_URL + '/storage/v1/object/documents/' + path, {
+    method:'POST',
+    headers:{ 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY,
+               'Content-Type': file.type },
+    body: file
+  });
+  if(!res.ok){ notify('Erreur upload fichier'); return { name: file.name, url:'' }; }
+  const url = SUPABASE_URL + '/storage/v1/object/public/documents/' + path;
+  return { name: file.name, url };
+}
+
+// ─── LOGO ──────────────────────────────────────────────────────────────────
+function setLogos(){
+  document.querySelectorAll('img[id$="-logo"], img[id$="logo"]').forEach(img=>{
+    img.src = 'BYK_Logo_yellow.png';
+  });
+}
+
+// ─── STATE ─────────────────────────────────────────────────────────────────
+const AUTH={email:'blandine.editorial@gmail.com',pass:'BYK_2026'};
+let currentUser=null,currentCId=null,currentMId=null;
+let consents=[], music=[];
+
+// ─── CHARGEMENT DONNÉES DEPUIS SUPABASE ────────────────────────────────────
+async function loadData(){
+  const [c, m] = await Promise.all([
+    sbFetch('consents?order=created_at.desc'),
+    sbFetch('music?order=created_at.desc')
+  ]);
+  consents = (c||[]).map(r=>({
+    id:r.id, name:r.name, community:r.community||'', role:r.role||'',
+    phone:r.phone||'', email:r.email||'', date:r.date_signed||'',
+    status:r.status||'pending', notes:r.notes||'',
+    file:r.file_name||'', file_url:r.file_url||''
+  }));
+  music = (m||[]).map(r=>({
+    id:r.id, track:r.track, composer:r.composer||'', artist:r.artist||'',
+    rights:r.rights||'', licence:r.licence||'sync', territory:r.territory||'',
+    duration:r.duration||'', status:r.status||'pending', notes:r.notes||'',
+    file:r.file_name||'', file_url:r.file_url||''
+  }));
+  renderOverview(); renderConsents(); renderMusic();
+}
+
+// ─── VIEWS ─────────────────────────────────────────────────────────────────
+function showView(v){
+  ['public','login','dashboard'].forEach(n=>document.getElementById('view-'+n).classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  if(v==='dashboard'){ loadData(); }
+  setTimeout(setLogos,50);
+}
+function showTab(t){
+  ['overview','consents','music'].forEach(n=>{
+    document.getElementById('tab-'+n).style.display=n===t?'block':'none';
+    const el=document.getElementById('nav-'+n);
+    if(el)el.classList.toggle('active',n===t);
+  });
+}
+
+// ─── AUTH ──────────────────────────────────────────────────────────────────
+function doLogin(){
+  const e=document.getElementById('login-email').value.trim();
+  const p=document.getElementById('login-pass').value;
+  const err=document.getElementById('login-error');
+  if(e===AUTH.email&&p===AUTH.pass){
+    currentUser=e;
+    document.getElementById('dash-username').textContent=e.split('@')[0];
+    document.getElementById('dash-avatar').textContent=e[0].toUpperCase();
+    err.style.display='none';
+    showView('dashboard');showTab('overview');
+  }else{err.style.display='block'}
+}
+function doLogout(){currentUser=null;showView('public')}
+
+// ─── UTILS ─────────────────────────────────────────────────────────────────
+function badge(s){
+  const map={signed:'badge-green',pending:'badge-yellow',missing:'badge-red',cleared:'badge-green',negotiating:'badge-blue',expired:'badge-red',na:'badge-grey'};
+  const lbl={signed:'Signed',pending:'Pending',missing:'Missing',cleared:'Cleared',negotiating:'Negotiating',expired:'Expired',na:'—'};
+  return`<span class="badge ${map[s]||'badge-grey'}">${lbl[s]||s}</span>`;
+}
+function notify(msg){
+  const n=document.getElementById('notif');
+  n.textContent=msg;n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'),3000);
+}
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function handleFile(input,labelId){
+  const f=input.files[0];
+  if(f)document.getElementById(labelId).textContent=f.name;
+}
+
+// ─── OVERVIEW ──────────────────────────────────────────────────────────────
+function renderOverview(){
+  const sc=consents.filter(c=>c.status==='signed').length;
+  const mc=music.filter(m=>m.status==='cleared').length;
+  document.getElementById('overview-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Total Consents</div><div class="stat-val">${consents.length}</div><div class="stat-sub">forms</div></div>
+    <div class="stat-card"><div class="stat-label">Signed</div><div class="stat-val">${sc}</div><div class="stat-sub">of ${consents.length}</div></div>
+    <div class="stat-card"><div class="stat-label">Music Tracks</div><div class="stat-val">${music.length}</div><div class="stat-sub">on record</div></div>
+    <div class="stat-card"><div class="stat-label">Cleared</div><div class="stat-val">${mc}</div><div class="stat-sub">of ${music.length}</div></div>
+  `;
+  document.getElementById('overview-consents').innerHTML=consents.slice(0,5).map(c=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #111">
+      <div><div style="font-size:13px;color:var(--white)">${c.name}</div><div style="font-size:11px;color:#444;font-family:var(--font-mono)">${c.community}</div></div>
+      ${badge(c.status)}
+    </div>`).join('');
+  document.getElementById('overview-music').innerHTML=music.filter(m=>m.status!=='cleared').slice(0,5).map(m=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #111">
+      <div><div style="font-size:13px;color:var(--white)">${m.track}</div><div style="font-size:11px;color:#444;font-family:var(--font-mono)">${m.composer}</div></div>
+      ${badge(m.status)}
+    </div>`).join('');
+}
+
+// ─── CONSENTS ──────────────────────────────────────────────────────────────
+function renderConsents(){
+  const q=(document.getElementById('consent-search')?.value||'').toLowerCase();
+  const fs=document.getElementById('consent-status')?.value||'';
+  const fd=document.getElementById('consent-date')?.value||'';
+  let list=consents.filter(c=>{
+    if(q&&!c.name.toLowerCase().includes(q)&&!c.community.toLowerCase().includes(q))return false;
+    if(fs&&c.status!==fs)return false;
+    if(fd&&c.date!==fd)return false;
+    return true;
+  });
+  const tb=document.getElementById('consents-tbody');
+  const em=document.getElementById('consents-empty');
+  if(!list.length){tb.innerHTML='';em.style.display='block';return}
+  em.style.display='none';
+  tb.innerHTML=list.map(c=>`
+    <tr onclick="openConsentDetail(${c.id})">
+      <td><strong>${c.name}</strong></td>
+      <td style="color:#888">${c.community}</td>
+      <td style="color:#666">${c.role}</td>
+      <td style="font-family:var(--font-mono);font-size:11px;color:#555">${c.date||'—'}</td>
+      <td>${badge(c.status)}</td>
+      <td style="font-family:var(--font-mono);font-size:10px;color:#444">${c.file?'📎':''}</td>
+      <td><button class="row-btn" onclick="event.stopPropagation();openConsentDetail(${c.id})">View →</button></td>
+    </tr>`).join('');
+}
+
+function openConsentForm(id){
+  const isEdit=!!id;
+  document.getElementById('cf-title').textContent=isEdit?'Edit Consent':'New Consent';
+  if(isEdit){
+    const c=consents.find(x=>x.id===id);
+    ['name','community','role','status','phone','email','date','notes'].forEach(f=>{
+      const el=document.getElementById('cf-'+f);
+      if(el)el.value=c[f]||'';
+    });
+    document.getElementById('cf-file-name').textContent=c.file||'PDF, JPG, PNG — click to select';
+    currentCId=id;
+  }else{
+    ['name','community','role','phone','email','notes'].forEach(f=>{const el=document.getElementById('cf-'+f);if(el)el.value=''});
+    document.getElementById('cf-status').value='pending';
+    document.getElementById('cf-date').value='';
+    document.getElementById('cf-file-name').textContent='PDF, JPG, PNG — click to select';
+    currentCId=null;
+  }
+  closeModal('modal-cd');
+  openModal('modal-cf');
+}
+
+async function saveConsent(){
+  const name=document.getElementById('cf-name').value.trim();
+  if(!name){alert('Name is required.');return}
+  notify('Saving…');
+  const fi=document.getElementById('cf-file');
+  const fileObj = fi.files[0] || null;
+  let file_name='', file_url='';
+  if(fileObj){
+    const up = await uploadFile(fileObj, 'consents');
+    file_name = up.name; file_url = up.url;
+  } else if(currentCId){
+    const existing = consents.find(c=>c.id===currentCId);
+    file_name = existing?.file||''; file_url = existing?.file_url||'';
+  }
+  const payload={
+    name,
+    community:document.getElementById('cf-community').value,
+    role:document.getElementById('cf-role').value,
+    status:document.getElementById('cf-status').value,
+    phone:document.getElementById('cf-phone').value,
+    email:document.getElementById('cf-email').value,
+    date_signed:document.getElementById('cf-date').value||null,
+    notes:document.getElementById('cf-notes').value,
+    file_name, file_url
+  };
+  let result;
+  if(currentCId){
+    result = await sbFetch('consents?id=eq.'+currentCId, {method:'PATCH', body:JSON.stringify(payload)});
+    notify('Consent updated');
+  }else{
+    result = await sbFetch('consents', {method:'POST', body:JSON.stringify(payload)});
+    notify('New consent saved');
+  }
+  closeModal('modal-cf');
+  await loadData();
+}
+
+function openConsentDetail(id){
+  const c=consents.find(x=>x.id===id);
+  currentCId=id;
+  document.getElementById('cd-name').textContent=c.name;
+  document.getElementById('cd-body').innerHTML=`
+    <div class="detail-grid">
+      <div class="detail-item"><div class="detail-lbl">Name</div><div class="detail-val">${c.name}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Status</div><div class="detail-val">${badge(c.status)}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Community</div><div class="detail-val">${c.community||'—'}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Role</div><div class="detail-val">${c.role||'—'}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Phone</div><div class="detail-val">${c.phone||'—'}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Email</div><div class="detail-val">${c.email||'—'}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Date Signed</div><div class="detail-val">${c.date||'—'}</div></div>
+    </div>
+    ${c.notes?`<div style="background:#111;padding:13px 16px;border:1px solid #1a1a1a;margin-bottom:8px"><div class="detail-lbl" style="margin-bottom:4px">Notes</div><div style="font-size:13px;line-height:1.6;color:#bbb">${c.notes}</div></div>`:''}
+    ${c.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${c.file}</div><div class="file-meta">Signed consent document</div></div>${c.file_url?`<a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a>`:`<button class="row-btn" style="margin-left:auto">Download →</button>`}</div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
+  `;
+  openModal('modal-cd');
+}
+
+async function deleteConsent(){
+  if(!confirm('Delete this consent permanently?'))return;
+  await sbFetch('consents?id=eq.'+currentCId, {method:'DELETE', prefer:''});
+  closeModal('modal-cd');
+  await loadData();
+  notify('Consent deleted');
+}
+function editConsent(){openConsentForm(currentCId)}
+
+// ─── MUSIC ─────────────────────────────────────────────────────────────────
+function renderMusic(){
+  const q=(document.getElementById('music-search')?.value||'').toLowerCase();
+  const fs=document.getElementById('music-status')?.value||'';
+  let list=music.filter(m=>{
+    if(q&&!m.track.toLowerCase().includes(q)&&!m.composer.toLowerCase().includes(q)&&!m.artist.toLowerCase().includes(q))return false;
+    if(fs&&m.status!==fs)return false;
+    return true;
+  });
+  const tb=document.getElementById('music-tbody');
+  const em=document.getElementById('music-empty');
+  if(!list.length){tb.innerHTML='';em.style.display='block';return}
+  em.style.display='none';
+  tb.innerHTML=list.map(m=>`
+    <tr onclick="openMusicDetail(${m.id})">
+      <td><strong>${m.track}</strong></td>
+      <td>${m.composer}</td>
+      <td style="color:#888">${m.artist}</td>
+      <td style="font-family:var(--font-mono);font-size:10px;color:#666;text-transform:uppercase">${m.licence}</td>
+      <td style="color:#666">${m.territory}</td>
+      <td>${badge(m.status)}</td>
+      <td><button class="row-btn" onclick="event.stopPropagation();openMusicDetail(${m.id})">View →</button></td>
+    </tr>`).join('');
+}
+
+function openMusicForm(id){
+  const isEdit=!!id;
+  document.getElementById('mf-title').textContent=isEdit?'Edit Track':'New Track';
+  if(isEdit){
+    const m=music.find(x=>x.id===id);
+    document.getElementById('mf-track').value=m.track;
+    document.getElementById('mf-composer').value=m.composer;
+    document.getElementById('mf-artist').value=m.artist;
+    document.getElementById('mf-rights').value=m.rights;
+    document.getElementById('mf-licence').value=m.licence;
+    document.getElementById('mf-territory').value=m.territory;
+    document.getElementById('mf-duration').value=m.duration;
+    document.getElementById('mf-status').value=m.status;
+    document.getElementById('mf-notes').value=m.notes;
+    document.getElementById('mf-file-name').textContent=m.file||'Contract, licence, correspondence';
+    currentMId=id;
+  }else{
+    ['mf-track','mf-composer','mf-artist','mf-rights','mf-territory','mf-duration','mf-notes'].forEach(f=>document.getElementById(f).value='');
+    document.getElementById('mf-status').value='pending';
+    document.getElementById('mf-licence').value='sync';
+    document.getElementById('mf-file-name').textContent='Contract, licence, correspondence';
+    currentMId=null;
+  }
+  closeModal('modal-md');
+  openModal('modal-mf');
+}
+
+async function saveMusic(){
+  const track=document.getElementById('mf-track').value.trim();
+  if(!track){alert('Track title is required.');return}
+  notify('Saving…');
+  const fi=document.getElementById('mf-file');
+  const fileObj = fi.files[0] || null;
+  let file_name='', file_url='';
+  if(fileObj){
+    const up = await uploadFile(fileObj, 'music');
+    file_name = up.name; file_url = up.url;
+  } else if(currentMId){
+    const existing = music.find(m=>m.id===currentMId);
+    file_name = existing?.file||''; file_url = existing?.file_url||'';
+  }
+  const payload={
+    track,
+    composer:document.getElementById('mf-composer').value,
+    artist:document.getElementById('mf-artist').value,
+    rights:document.getElementById('mf-rights').value,
+    licence:document.getElementById('mf-licence').value,
+    territory:document.getElementById('mf-territory').value,
+    duration:document.getElementById('mf-duration').value,
+    status:document.getElementById('mf-status').value,
+    notes:document.getElementById('mf-notes').value,
+    file_name, file_url
+  };
+  if(currentMId){
+    await sbFetch('music?id=eq.'+currentMId, {method:'PATCH', body:JSON.stringify(payload)});
+    notify('Track updated');
+  }else{
+    await sbFetch('music', {method:'POST', body:JSON.stringify(payload)});
+    notify('New track saved');
+  }
+  closeModal('modal-mf');
+  await loadData();
+}
+
+function openMusicDetail(id){
+  const m=music.find(x=>x.id===id);
+  currentMId=id;
+  const licLabels={sync:'Synchronisation',master:'Master','sync+master':'Sync + Master',free:'Royalty Free',cc:'Creative Commons',other:'Other'};
+  document.getElementById('md-title').textContent=m.track;
+  document.getElementById('md-body').innerHTML=`
+    <div class="detail-grid">
+      <div class="detail-item"><div class="detail-lbl">Track</div><div class="detail-val">${m.track}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Status</div><div class="detail-val">${badge(m.status)}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Composer</div><div class="detail-val">${m.composer||'—'}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Artist</div><div class="detail-val">${m.artist||'—'}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Rights Holder</div><div class="detail-val">${m.rights||'—'}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Licence Type</div><div class="detail-val">${licLabels[m.licence]||m.licence}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Territory</div><div class="detail-val">${m.territory||'—'}</div></div>
+      <div class="detail-item"><div class="detail-lbl">Duration</div><div class="detail-val">${m.duration||'—'}</div></div>
+    </div>
+    ${m.notes?`<div style="background:#111;padding:13px 16px;border:1px solid #1a1a1a;margin-bottom:8px"><div class="detail-lbl" style="margin-bottom:4px">Notes</div><div style="font-size:13px;line-height:1.6;color:#bbb">${m.notes}</div></div>`:''}
+    ${m.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${m.file}</div><div class="file-meta">Licence document</div></div>${m.file_url?`<a href="${m.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a>`:`<button class="row-btn" style="margin-left:auto">Download →</button>`}</div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
+  `;
+  openModal('modal-md');
+}
+
+async function deleteMusic(){
+  if(!confirm('Delete this track permanently?'))return;
+  await sbFetch('music?id=eq.'+currentMId, {method:'DELETE', prefer:''});
+  closeModal('modal-md');
+  await loadData();
+  notify('Track deleted');
+}
+function editMusic(){openMusicForm(currentMId)}
+
+// ─── CSV EXPORT ────────────────────────────────────────────────────────────
+function exportCSV(type){
+  let rows,headers;
+  if(type==='consents'){
+    headers=['Name','Community','Role','Phone','Email','Date Signed','Status','File','Notes'];
+    rows=consents.map(c=>[c.name,c.community,c.role,c.phone,c.email,c.date,c.status,c.file,c.notes]);
+  }else{
+    headers=['Track','Composer','Artist','Rights Holder','Licence','Territory','Duration','Status','File','Notes'];
+    rows=music.map(m=>[m.track,m.composer,m.artist,m.rights,m.licence,m.territory,m.duration,m.status,m.file,m.notes]);
+  }
+  const csv=[headers,...rows].map(r=>r.map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download=`${type}_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  notify('CSV downloaded');
+}
+
+// ─── MODAL CLOSE ON OVERLAY ────────────────────────────────────────────────
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')});
+});
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  setTimeout(setLogos,100);
+});
+</script>
+</body>
+</html>
