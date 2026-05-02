@@ -19,7 +19,8 @@
 body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-height:100vh;overflow-x:hidden}
 
 /* ── VIEWS ── */
-#view-public,#view-login,#view-dashboard{display:none}
+#view-public.active{display:block}
+#view-login.active,#view-dashboard.active{display:block;position:fixed;top:0;left:0;width:100%;height:100%;overflow-y:auto;z-index:999;background:var(--black)}
 #view-public.active,#view-login.active,#view-dashboard.active{display:block}
 
 /* ══ PUBLIC SITE ══ */
