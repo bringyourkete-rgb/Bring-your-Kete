@@ -1046,9 +1046,16 @@ async function loadData(){
 
 // ─── VIEWS ─────────────────────────────────────────────────────────────────
 function showView(v){
-  ['public','login','dashboard'].forEach(n=>document.getElementById('view-'+n).classList.remove('active'));
-  document.getElementById('view-'+v).classList.add('active');
-  window.scrollTo(0,0);
+  ['public','login','dashboard'].forEach(n=>{
+    const el=document.getElementById('view-'+n);
+    el.classList.remove('active');
+    el.style.display='none';
+  });
+  const target=document.getElementById('view-'+v);
+  target.classList.add('active');
+  target.style.display='block';
+  document.body.scrollTop=0;
+  document.documentElement.scrollTop=0;
   if(v==='dashboard'){ loadData(); }
   setTimeout(setLogos,50);
 }
