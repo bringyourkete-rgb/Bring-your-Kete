@@ -20,8 +20,7 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 
 /* ── VIEWS ── */
 #view-public,#view-login,#view-dashboard{display:none}
-#view-public.active{display:block}
-#view-login.active,#view-dashboard.active{display:block;position:fixed;top:0;left:0;width:100%;height:100%;overflow-y:auto;z-index:999;background:var(--black)}
+#view-public.active,#view-login.active,#view-dashboard.active{display:block}
 
 /* ══ PUBLIC SITE ══ */
 
@@ -30,17 +29,8 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
   position:fixed;top:0;left:0;right:0;z-index:50;
   display:flex;justify-content:space-between;align-items:center;
   padding:20px 48px;
-  background:#0A0A0A;
-  transition:transform .4s ease, opacity .4s ease;
+  background:#0A0A0A;transition:transform .4s ease, opacity .4s ease;
 }
-.pub-nav.hidden{transform:translateY(-100%);opacity:0}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:28px;height:3px;background:#FAFAF5;transition:all .3s;margin:3px 0}
-.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0A0A0A;z-index:49;flex-direction:column;align-items:center;justify-content:center;gap:32px}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-family:var(--font-mono);font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;text-decoration:none}
-.mobile-menu a:hover{color:var(--yellow)}
-
 .pub-logo-wrap{display:flex;align-items:center;gap:14px;text-decoration:none}
 .pub-logo-circle{
   width:52px;height:52px;border-radius:50%;background:var(--yellow);
@@ -60,11 +50,10 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 .pub-nav-links a:hover{color:var(--yellow)}
 .pub-access-btn{
   font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:#aaa;background:transparent;border:none;
+  color:var(--black);background:var(--yellow);border:none;
   padding:9px 20px;cursor:pointer;font-family:var(--font-mono);
   transition:all .2s;white-space:nowrap;
 }
-.pub-access-btn:hover{color:var(--yellow)}
 .pub-access-btn:hover{background:var(--yellow-dim)}
 
 /* HERO */
@@ -428,7 +417,7 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 
 /* Modal */
 .modal-overlay{
-  position:fixed;inset:0;background:#000000cc;z-index:9999;
+  position:fixed;inset:0;background:#000000cc;z-index:100;
   display:flex;align-items:center;justify-content:center;
   opacity:0;pointer-events:none;transition:opacity .2s;
 }
@@ -518,7 +507,7 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 </style>
 </head>
 <body>
-<div id="top"></div>
+
 <!-- ═══════════════ PUBLIC SITE ═══════════════ -->
 <div id="view-public" class="active">
 
@@ -531,20 +520,26 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
         <div class="pub-logo-sub">Film & Podcast</div>
       </div>
     </a>
-<div class="pub-nav-links">
+    <div class="pub-nav-links">
       <a href="#film">The Film</a>
       <a href="#communities">Communities</a>
       <a href="#podcast">Podcast</a>
       <a href="#team">Team</a>
       <a href="#contact">Contact</a>
-      <a href="https://www.instagram.com/bringyourkete" target="_blank" style="color:#aaa;transition:color .2s;display:flex;align-items:center" onmouseover="this.style.color='#F5D800'" onmouseout="this.style.color='#aaa'">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      </a>
+      <a href="https://www.instagram.com/bringyourkete" target="_blank" 
+   style="color:#aaa;transition:color .2s;display:flex;align-items:center"
+   onmouseover="this.style.color='#F5D800'" 
+   onmouseout="this.style.color='#aaa'">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </svg>
+</a>
       <a class="pub-access-btn" href="#top" onclick="showView('login')">Team Access →</a>
     </div>
     <button class="hamburger" onclick="toggleMenu()" id="hamburger">
       <span></span><span></span><span></span>
     </button>
+  </nav>
   <div class="mobile-menu" id="mobile-menu">
     <a href="#film" onclick="toggleMenu()">The Film</a>
     <a href="#communities" onclick="toggleMenu()">Communities</a>
@@ -586,13 +581,13 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
     <div class="film-grid">
       <div>
         <h2 class="section-title">How do we make sense of the world?</h2>
-        <p class="film-synopsis"> Within Planet FM, a community radio station in Auckland, communities from around the globe intersect. Five of them invite us into their programmes and their communities—speaking not only of their culture, but also of the country and the city that have welcomed them, offering a new perspective on Aotearoa.</p>
+        <p class="film-synopsis"> Within Planet FM, a community radio station in Auckland, communities from around the globe intersect. Five of them invite us into their programmes and their communities—speaking not only of where they come from, but also of the country and the city that have welcomed them, offering a new perspective on Aotearoa.</p>
         <p class="film-body">Through discovering each community’s values and talents, the film explores how we experience the world as human beings. The insight each presenter gains from living in a different culture reveals how deeply the cultures we grow up in shape the way we act, perceive, and relate to others. As experiences and cultures intersect, a question gradually emerges: how can we draw on this shared human richness?</p>
         <div class="film-meta">
           <div class="film-meta-item"><div class="meta-label">Director</div><div class="meta-val">Blandine Massiet du Biest</div></div>
           <div class="film-meta-item"><div class="meta-label">Production</div><div class="meta-val">Bring Your Kete</div></div>
           <div class="film-meta-item"><div class="meta-label">Country</div><div class="meta-val">Aotearoa New Zealand</div></div>
-          <div class="film-meta-item"><div class="meta-label">Year</div><div class="meta-val">2026</div></div>
+          <div class="film-meta-item"><div class="meta-label">Year</div><div class="meta-val">2025</div></div>
           <div class="film-meta-item"><div class="meta-label">Duration</div><div class="meta-val">TBC</div></div>
           <div class="film-meta-item"><div class="meta-label">Language</div><div class="meta-val">English / Te Reo Māori</div></div>
         </div>
@@ -600,12 +595,12 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
  <div class="stills-area">
   <img src="Malayalam_Site.png" style="width:100%;height:280px;object-fit:cover"/>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px">
-    <img src="Dalmatian_Site_1.png" style="width:100%;height:180px;object-fit:cover"/>
-    <img src="Moui_Site_1.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Dalmatian_Site.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Akwaaba_Site.png" style="width:100%;height:180px;object-fit:cover"/>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px">
-    <img src="Latin_Site_1.png" style="width:100%;height:180px;object-fit:cover"/>
-    <img src="Akwaaba_Site_1.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Moui_Site.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Latin_Site.png" style="width:100%;height:180px;object-fit:cover"/>
   </div>
 </div>
           
@@ -622,9 +617,9 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
       <div class="comm-grid">
         <div class="comm-card"><div class="comm-name">Tonga</div><div class="comm-region">MO'ui Lelei Toulekeleka</div><div class="comm-desc">Hosted by Taani, this programme is dedicated to older people and their wellbeing. This Tongan group carries many stories and a deep sense of warmth—māfana—as explaining the joy they find in coming together, and which they share with us.</div></div>
         <div class="comm-card"><div class="comm-name">Dalmatian</div><div class="comm-region">Dalmacian Radio</div><div class="comm-desc">Nick hosts the programme Dalmatian Radio, playing music from the different regions that once made up the former Yugoslavia. He opens the door to a community that has lived in New Zealand for several generations, keeping its values and traditions very much alive.</div></div>
-        <div class="comm-card"><div class="comm-name">Malayalam</div><div class="comm-region">Malayam Radio</div><div class="comm-desc">Sindhu and George come from Kerala. They produce radio plays, music, and news for their community in Malayalam. A programme as vibrant as their community,through which we glimpse the energy they bring to their life in New Zealand..</div></div>
+        <div class="comm-card"><div class="comm-name">Malayalam</div><div class="comm-region">Malayam Radio</div><div class="comm-desc">Like many members of their community, Sindhu and George come from Kerala. They produce radio plays, music, and news for their community in Malayalam. A programme as vibrant as their community, which comes together throughout the events that mark the year.</div></div>
         <div class="comm-card"><div class="comm-name">Latin America</div><div class="comm-region">Latin Kiwi</div><div class="comm-desc">Cecilia masterfully hosts her programme “Latin Kiwi” in Spanish, speaking to the vibrant Latin American community. She keeps them up to date with local events and invites us to dance and celebrate life the way Latin Americans do so well.</div></div>
-        <div class="comm-card"><div class="comm-name">Ghanaian</div><div class="comm-region">Radio Akwaaba</div><div class="comm-desc">Kwado and Kwabena host their radio programme “Radio Akwaaba” in English and in Ghanaian languages. Together, with the Ghanaian Association of New Zealand, they bring their community together—building connections across generations while living in Auckland and contributing their diverse skills to their adopted country.</div></div>
+        <div class="comm-card"><div class="comm-name">Ghanaian</div><div class="comm-region">Radio Akwaaba</div><div class="comm-desc">Kwado and Kwabena host their radio programme “Radio Akwaaba” in English and in Akan. Together, with the Ghanaian Association of New Zealand, they bring their community together—building connections across generations while living in Auckland and contributing their diverse skills to their adopted country.</div></div>
         <div class="comm-card"><div class="comm-name">Auckland</div><div class="comm-region">A multicultural city.</div><div class="comm-desc">Auckland is a character in its own right in this film. A city where 42% of the population was born overseas, it is a vibrant melting pot where stories, music, dance, and food intertwine—offering the perfect setting to take a closer look at how our cultural identities shape the way we see the world, and how, by exploring the diversity of our values and talents more deeply, we can all learn from one another.</div></div>
         
       </div>
@@ -689,7 +684,7 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
       <div class="footer-logo-dot"><img id="footer-logo" src="" alt="BYK"/></div>
       <span class="footer-name" style="margin-left:10px">Bring Your Kete</span>
     </div>
-    <span class="footer-copy">© 2026 Bring Your Kete Production — Aotearoa New Zealand</span>
+    <span class="footer-copy">© 2025 Bring Your Kete Production — Aotearoa New Zealand</span>
   </div>
 </div>
 
@@ -752,7 +747,6 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
         <div class="dash-topbar">
           <div class="dash-page-title">Overview</div>
           <div class="dash-actions">
-            <button class="btn-dash-out" onclick="showView('public')">← Back to site</button>
             <button class="btn-dash-out" onclick="showTab('consents')">Consents →</button>
             <button class="btn-dash-out" onclick="showTab('music')">Music Rights →</button>
           </div>
@@ -996,88 +990,41 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 <div class="notif" id="notif"></div>
 
 <script>
-// ─── SUPABASE CONFIG ───────────────────────────────────────────────────────
-// ⚠️  Remplace ces deux valeurs par les tiennes (copiées depuis Supabase → Settings → API)
-const SUPABASE_URL  = 'https://vptsmrhxberpybegoicm.supabase.co';       // ex: https://xxxx.supabase.co
-const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdHNtcmh4YmVycHliZWdvaWNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NjU0NjgsImV4cCI6MjA5MzI0MTQ2OH0.qTg5BaRUFX-eETsCxBq20qsWJF54_CVXWUhAdNtiDo4';   // clé "anon public"
+// ─── LOGO (embed at runtime) ───────────────────────────────────────────────
+const LOGO_B64='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAARC';
 
-async function sbFetch(path, options={}){
-  const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': 'Bearer ' + SUPABASE_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': options.prefer || 'return=representation',
-      ...options.headers
-    },
-    ...options
-  });
-  if(!res.ok){ const err=await res.text(); console.error('Supabase error:',err); return null; }
-  const text = await res.text();
-  return text ? JSON.parse(text) : [];
-}
-
-// Upload d'un fichier dans le bucket Supabase Storage "documents"
-async function uploadFile(file, folder){
-  if(!file) return { name:'', url:'' };
-  const path = folder + '/' + Date.now() + '_' + file.name;
-  const res = await fetch(SUPABASE_URL + '/storage/v1/object/documents/' + path, {
-    method:'POST',
-    headers:{ 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY,
-               'Content-Type': file.type },
-    body: file
-  });
-  if(!res.ok){ notify('Erreur upload fichier'); return { name: file.name, url:'' }; }
-  const url = SUPABASE_URL + '/storage/v1/object/public/documents/' + path;
-  return { name: file.name, url };
-}
-
-// ─── LOGO ──────────────────────────────────────────────────────────────────
 function setLogos(){
   document.querySelectorAll('img[id$="-logo"], img[id$="logo"]').forEach(img=>{
-    img.src = 'BYK_Logo_yellow.png';
+    if(!img.src||img.src===window.location.href)img.src=LOGO_B64;
   });
 }
 
 // ─── STATE ─────────────────────────────────────────────────────────────────
-const AUTH={email:'bring.your.kete@gmail.com',pass:'BYK_2026'};
+const AUTH={email:'blandine.editorial@gmail.com',pass:'BYK_2026'};
 let currentUser=null,currentCId=null,currentMId=null;
-let consents=[], music=[];
 
-// ─── CHARGEMENT DONNÉES DEPUIS SUPABASE ────────────────────────────────────
-async function loadData(){
-  const [c, m] = await Promise.all([
-    sbFetch('consents?order=created_at.desc'),
-    sbFetch('music?order=created_at.desc')
-  ]);
-  consents = (c||[]).map(r=>({
-    id:r.id, name:r.name, community:r.community||'', role:r.role||'',
-    phone:r.phone||'', email:r.email||'', date:r.date_signed||'',
-    status:r.status||'pending', notes:r.notes||'',
-    file:r.file_name||'', file_url:r.file_url||''
-  }));
-  music = (m||[]).map(r=>({
-    id:r.id, track:r.track, composer:r.composer||'', artist:r.artist||'',
-    rights:r.rights||'', licence:r.licence||'sync', territory:r.territory||'',
-    duration:r.duration||'', status:r.status||'pending', notes:r.notes||'',
-    file:r.file_name||'', file_url:r.file_url||''
-  }));
-  renderOverview(); renderConsents(); renderMusic();
-}
+let consents=[
+  {id:1,name:'Hine Parata',community:'Ngāti Whātua',role:'Kuia — Elder voice',phone:'+64 21 123 4567',email:'hine@email.com',date:'2024-11-10',status:'signed',notes:'Consent given on marae. Two copies signed.',file:'consent_hine_parata.pdf'},
+  {id:2,name:'Sione Tuilagi',community:'Samoan Community Wellington',role:'Community leader',phone:'+64 22 234 5678',email:'sione@scw.org.nz',date:'2024-12-01',status:'signed',notes:'',file:''},
+  {id:3,name:'Emma Chen',community:'Auckland Migrant Stories',role:'Interviewee',phone:'',email:'emma.chen@email.com',date:'',status:'pending',notes:'Sent form by email on 15 Jan. Following up.',file:''},
+  {id:4,name:'Wiremu Tane',community:'Taranaki Iwi',role:'Kaumātua',phone:'+64 27 345 6789',email:'',date:'2025-01-20',status:'signed',notes:'Signed on location.',file:'consent_wiremu.pdf'},
+  {id:5,name:'Priya Sharma',community:'Indian NZ Association',role:'Participant',phone:'+64 21 456 7890',email:'priya.s@email.com',date:'',status:'missing',notes:'Form was lost. Needs to be re-signed.',file:''},
+];
+
+let music=[
+  {id:1,track:'Tangi Reo',composer:'Hirini Melbourne',artist:'Hirini Melbourne',rights:'Estate of Hirini Melbourne',licence:'sync+master',territory:'Worldwide',duration:'Unlimited',status:'cleared',notes:'Licence signed 10 Jan 2025.',file:'licence_tangi_reo.pdf'},
+  {id:2,track:'Island Rhythm',composer:'Faleolo Alama',artist:'Faleolo Alama',rights:'Pacific Music NZ',licence:'sync',territory:'NZ & Australia',duration:'5 years',status:'negotiating',notes:'Waiting on revised fee from rights holder.',file:''},
+  {id:3,track:'Aotearoa Dawn',composer:'Dave Dobbyn',artist:'Dave Dobbyn',rights:'APRA AMCOS',licence:'sync+master',territory:'Worldwide',duration:'Unlimited',status:'pending',notes:'Application submitted 5 Feb 2025.',file:''},
+  {id:4,track:'Open Road',composer:'Unknown — Creative Commons',artist:'Various',rights:'CC Attribution 4.0',licence:'cc',territory:'Worldwide',duration:'Unlimited',status:'cleared',notes:'No fee. Attribution required in credits.',file:''},
+];
+
+let nextCId=consents.length+1,nextMId=music.length+1;
 
 // ─── VIEWS ─────────────────────────────────────────────────────────────────
 function showView(v){
-  ['public','login','dashboard'].forEach(n=>{
-    const el=document.getElementById('view-'+n);
-    el.classList.remove('active');
-    el.style.display='none';
-  });
-  const target=document.getElementById('view-'+v);
-  target.classList.add('active');
-  target.style.display='block';
-  document.body.scrollTop=0;
-  document.documentElement.scrollTop=0;
-  if(v==='dashboard'){ loadData(); }
+  ['public','login','dashboard'].forEach(n=>document.getElementById('view-'+n).classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  if(v==='dashboard'){renderOverview();renderConsents();renderMusic();}
   setTimeout(setLogos,50);
 }
 function showTab(t){
@@ -1192,41 +1139,29 @@ function openConsentForm(id){
   openModal('modal-cf');
 }
 
-async function saveConsent(){
+function saveConsent(){
   const name=document.getElementById('cf-name').value.trim();
   if(!name){alert('Name is required.');return}
-  notify('Saving…');
   const fi=document.getElementById('cf-file');
-  const fileObj = fi.files[0] || null;
-  let file_name='', file_url='';
-  if(fileObj){
-    const up = await uploadFile(fileObj, 'consents');
-    file_name = up.name; file_url = up.url;
-  } else if(currentCId){
-    const existing = consents.find(c=>c.id===currentCId);
-    file_name = existing?.file||''; file_url = existing?.file_url||'';
-  }
-  const payload={
+  const fname=fi.files[0]?.name||'';
+  const obj={
     name,
     community:document.getElementById('cf-community').value,
     role:document.getElementById('cf-role').value,
     status:document.getElementById('cf-status').value,
     phone:document.getElementById('cf-phone').value,
     email:document.getElementById('cf-email').value,
-    date_signed:document.getElementById('cf-date').value||null,
+    date:document.getElementById('cf-date').value,
     notes:document.getElementById('cf-notes').value,
-    file_name, file_url
+    file:fname||(currentCId?consents.find(c=>c.id===currentCId)?.file||'':''),
   };
-  let result;
   if(currentCId){
-    result = await sbFetch('consents?id=eq.'+currentCId, {method:'PATCH', body:JSON.stringify(payload)});
-    notify('Consent updated');
+    const i=consents.findIndex(c=>c.id===currentCId);
+    consents[i]={...obj,id:currentCId};notify('Consent updated');
   }else{
-    result = await sbFetch('consents', {method:'POST', body:JSON.stringify(payload)});
-    notify('New consent saved');
+    consents.push({...obj,id:nextCId++});notify('New consent saved');
   }
-  closeModal('modal-cf');
-  await loadData();
+  closeModal('modal-cf');renderConsents();renderOverview();
 }
 
 function openConsentDetail(id){
@@ -1244,17 +1179,15 @@ function openConsentDetail(id){
       <div class="detail-item"><div class="detail-lbl">Date Signed</div><div class="detail-val">${c.date||'—'}</div></div>
     </div>
     ${c.notes?`<div style="background:#111;padding:13px 16px;border:1px solid #1a1a1a;margin-bottom:8px"><div class="detail-lbl" style="margin-bottom:4px">Notes</div><div style="font-size:13px;line-height:1.6;color:#bbb">${c.notes}</div></div>`:''}
-    ${c.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${c.file}</div><div class="file-meta">Signed consent document</div></div>${c.file_url?`<a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a>`:`<button class="row-btn" style="margin-left:auto">Download →</button>`}</div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
+    ${c.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${c.file}</div><div class="file-meta">Signed consent document</div></div><button class="row-btn" style="margin-left:auto">Download →</button></div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
   `;
   openModal('modal-cd');
 }
 
-async function deleteConsent(){
+function deleteConsent(){
   if(!confirm('Delete this consent permanently?'))return;
-  await sbFetch('consents?id=eq.'+currentCId, {method:'DELETE', prefer:''});
-  closeModal('modal-cd');
-  await loadData();
-  notify('Consent deleted');
+  consents=consents.filter(c=>c.id!==currentCId);
+  closeModal('modal-cd');renderConsents();renderOverview();notify('Consent deleted');
 }
 function editConsent(){openConsentForm(currentCId)}
 
@@ -1310,21 +1243,12 @@ function openMusicForm(id){
   openModal('modal-mf');
 }
 
-async function saveMusic(){
+function saveMusic(){
   const track=document.getElementById('mf-track').value.trim();
   if(!track){alert('Track title is required.');return}
-  notify('Saving…');
   const fi=document.getElementById('mf-file');
-  const fileObj = fi.files[0] || null;
-  let file_name='', file_url='';
-  if(fileObj){
-    const up = await uploadFile(fileObj, 'music');
-    file_name = up.name; file_url = up.url;
-  } else if(currentMId){
-    const existing = music.find(m=>m.id===currentMId);
-    file_name = existing?.file||''; file_url = existing?.file_url||'';
-  }
-  const payload={
+  const fname=fi.files[0]?.name||'';
+  const obj={
     track,
     composer:document.getElementById('mf-composer').value,
     artist:document.getElementById('mf-artist').value,
@@ -1334,17 +1258,15 @@ async function saveMusic(){
     duration:document.getElementById('mf-duration').value,
     status:document.getElementById('mf-status').value,
     notes:document.getElementById('mf-notes').value,
-    file_name, file_url
+    file:fname||(currentMId?music.find(m=>m.id===currentMId)?.file||'':''),
   };
   if(currentMId){
-    await sbFetch('music?id=eq.'+currentMId, {method:'PATCH', body:JSON.stringify(payload)});
-    notify('Track updated');
+    const i=music.findIndex(m=>m.id===currentMId);
+    music[i]={...obj,id:currentMId};notify('Track updated');
   }else{
-    await sbFetch('music', {method:'POST', body:JSON.stringify(payload)});
-    notify('New track saved');
+    music.push({...obj,id:nextMId++});notify('New track saved');
   }
-  closeModal('modal-mf');
-  await loadData();
+  closeModal('modal-mf');renderMusic();renderOverview();
 }
 
 function openMusicDetail(id){
@@ -1364,17 +1286,15 @@ function openMusicDetail(id){
       <div class="detail-item"><div class="detail-lbl">Duration</div><div class="detail-val">${m.duration||'—'}</div></div>
     </div>
     ${m.notes?`<div style="background:#111;padding:13px 16px;border:1px solid #1a1a1a;margin-bottom:8px"><div class="detail-lbl" style="margin-bottom:4px">Notes</div><div style="font-size:13px;line-height:1.6;color:#bbb">${m.notes}</div></div>`:''}
-    ${m.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${m.file}</div><div class="file-meta">Licence document</div></div>${m.file_url?`<a href="${m.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a>`:`<button class="row-btn" style="margin-left:auto">Download →</button>`}</div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
+    ${m.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${m.file}</div><div class="file-meta">Licence document</div></div><button class="row-btn" style="margin-left:auto">Download →</button></div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
   `;
   openModal('modal-md');
 }
 
-async function deleteMusic(){
+function deleteMusic(){
   if(!confirm('Delete this track permanently?'))return;
-  await sbFetch('music?id=eq.'+currentMId, {method:'DELETE', prefer:''});
-  closeModal('modal-md');
-  await loadData();
-  notify('Track deleted');
+  music=music.filter(m=>m.id!==currentMId);
+  closeModal('modal-md');renderMusic();renderOverview();notify('Track deleted');
 }
 function editMusic(){openMusicForm(currentMId)}
 
@@ -1402,23 +1322,31 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{
 });
 
 // ─── INIT ──────────────────────────────────────────────────────────────────
-// ─── NAV SCROLL BEHAVIOUR ──────────────────────────────────────────────────
-let scrollTimer=null, lastScroll=0;
+// NAV SCROLL
+let scrollTimer=null;
 window.addEventListener('scroll',()=>{
   const nav=document.querySelector('.pub-nav');
   if(!nav)return;
   nav.classList.add('hidden');
   clearTimeout(scrollTimer);
-  scrollTimer=setTimeout(()=>{ nav.classList.remove('hidden'); },1000);
-  lastScroll=window.scrollY;
-},{ passive:true });
-
+  scrollTimer=setTimeout(()=>nav.classList.remove('hidden'),1000);
+},{passive:true});
 function toggleMenu(){
-  const m=document.getElementById('mobile-menu');
-  m.classList.toggle('open');
+  document.getElementById('mobile-menu').classList.toggle('open');
 }
-  window.addEventListener('load',()=>{
-  setTimeout(setLogos,100);
+window.addEventListener('load',()=>{
+  // Load the actual logo from file
+  fetch('/mnt/user-data/uploads/BYK_Logo_yellow.png').catch(()=>{});
+  // Set logos using the embedded base64 (truncated above — the JS will use a full img load below)
+  const logoUrl='/mnt/user-data/uploads/BYK_Logo_yellow.png';
+  // For browser: since file is local we embed via object URL would fail; use base64 stored in variable
+  // The full base64 is too long for inline, so we use the file path approach for the deployed version.
+  // For now, set a fallback yellow circle with BYK text
+  document.querySelectorAll('img[id$="-logo"], img[id$="logo"]').forEach(img=>{
+    img.onerror=function(){this.style.display='none';this.parentElement.innerHTML='<div style="font-family:serif;font-size:clamp(10px,2.5vw,20px);font-weight:700;color:#0A0A0A;line-height:1">B<span style="font-style:italic;font-size:.7em">yk</span></div>';};
+    // Try to load from uploads path (works in local preview)
+    img.src='BYK_Logo_yellow.png';
+  });
 });
 </script>
 </body>
