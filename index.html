@@ -1406,7 +1406,22 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{
 });
 
 // ─── INIT ──────────────────────────────────────────────────────────────────
-window.addEventListener('load',()=>{
+// ─── NAV SCROLL BEHAVIOUR ──────────────────────────────────────────────────
+let scrollTimer=null, lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('.pub-nav');
+  if(!nav)return;
+  nav.classList.add('hidden');
+  clearTimeout(scrollTimer);
+  scrollTimer=setTimeout(()=>{ nav.classList.remove('hidden'); },2000);
+  lastScroll=window.scrollY;
+},{ passive:true });
+
+function toggleMenu(){
+  const m=document.getElementById('mobile-menu');
+  m.classList.toggle('open');
+}
+  window.addEventListener('load',()=>{
   setTimeout(setLogos,100);
 });
 </script>
