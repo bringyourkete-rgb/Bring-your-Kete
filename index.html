@@ -36,12 +36,12 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 .pub-nav.hidden{transform:translateY(-100%);opacity:0}
 .hamburger{display:none;flex-direction:column;cursor:pointer;background:none;border:none;padding:8px;gap:0}
 .hamburger span{display:block;width:26px;height:2px;background:var(--yellow);margin:4px 0}
+.mobile-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000000aa;z-index:997}
+.mobile-overlay.open{display:block}
 .mobile-menu{position:fixed;top:0;left:0;bottom:0;width:75%;max-width:300px;background:#111;z-index:998;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;padding:40px 32px;transform:translateX(-100%);transition:transform .35s ease;display:flex}
 .mobile-menu.open{transform:translateX(0)}
 .mobile-menu a{font-family:var(--font-mono);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;text-decoration:none;width:100%}
 .mobile-menu a:hover{color:var(--yellow)}
-.mobile-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000000aa;z-index:997}
-.mobile-overlay.open{display:block}
 .pub-logo-wrap{display:flex;align-items:center;gap:14px;text-decoration:none}
 .pub-logo-circle{
   width:52px;height:52px;border-radius:50%;background:var(--yellow);
@@ -518,6 +518,7 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 </style>
 </head>
 <body>
+<div id="top"></div>
 
 <!-- ═══════════════ PUBLIC SITE ═══════════════ -->
 <div id="view-public" class="active">
@@ -1195,7 +1196,7 @@ function openConsentDetail(id){
       <div class="detail-item"><div class="detail-lbl">Date Signed</div><div class="detail-val">${c.date||'—'}</div></div>
     </div>
     ${c.notes?`<div style="background:#111;padding:13px 16px;border:1px solid #1a1a1a;margin-bottom:8px"><div class="detail-lbl" style="margin-bottom:4px">Notes</div><div style="font-size:13px;line-height:1.6;color:#bbb">${c.notes}</div></div>`:''}
-    ${c.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${c.file}</div><div class="file-meta">Signed consent document</div></div><a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a></div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
+    ${c.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${c.file}</div><div class="file-meta">Signed consent document</div></div>`<a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a></div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
   `;
   openModal('modal-cd');
 }
@@ -1291,7 +1292,7 @@ function openMusicDetail(id){
       <div class="detail-item"><div class="detail-lbl">Duration</div><div class="detail-val">${m.duration||'—'}</div></div>
     </div>
     ${m.notes?`<div style="background:#111;padding:13px 16px;border:1px solid #1a1a1a;margin-bottom:8px"><div class="detail-lbl" style="margin-bottom:4px">Notes</div><div style="font-size:13px;line-height:1.6;color:#bbb">${m.notes}</div></div>`:''}
-    ${m.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${m.file}</div><div class="file-meta">Licence document</div></div><a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a></div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
+    ${m.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${m.file}</div><div class="file-meta">Licence document</div></div>`<a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a></div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
   `;
   openModal('modal-md');
 }
