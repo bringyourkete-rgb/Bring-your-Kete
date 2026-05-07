@@ -1413,7 +1413,7 @@ window.addEventListener('scroll',()=>{
   if(!nav)return;
   nav.classList.add('hidden');
   clearTimeout(scrollTimer);
-  scrollTimer=setTimeout(()=>{ nav.classList.remove('hidden'); },2000);
+  scrollTimer=setTimeout(()=>{ nav.classList.remove('hidden'); },1000);
   lastScroll=window.scrollY;
 },{ passive:true });
 
