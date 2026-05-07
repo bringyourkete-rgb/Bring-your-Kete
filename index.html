@@ -1423,8 +1423,8 @@ window.addEventListener('scroll',()=>{
 },{ passive:true });
 
 function toggleMenu(){
-  const m=document.getElementById('mobile-menu');
-  m.classList.toggle('open');
+  document.getElementById('mobile-menu').classList.toggle('open');
+  document.getElementById('mobile-overlay').classList.toggle('open');
 }
   window.addEventListener('load',()=>{
   setTimeout(setLogos,100);
