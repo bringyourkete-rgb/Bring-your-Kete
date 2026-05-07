@@ -31,17 +31,16 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
   display:flex;justify-content:space-between;align-items:center;
   padding:20px 48px;
   background:#0A0A0A;
-  transition:transform .4s ease,opacity .4s ease;
+  transition:transform .4s ease, opacity .4s ease;
 }
 .pub-nav.hidden{transform:translateY(-100%);opacity:0}
-.hamburger{display:none;flex-direction:column;cursor:pointer;background:none;border:none;padding:8px;gap:0}
-.hamburger span{display:block;width:26px;height:2px;background:var(--yellow);margin:4px 0}
-.mobile-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000000aa;z-index:997}
-.mobile-overlay.open{display:block}
-.mobile-menu{position:fixed;top:0;left:0;bottom:0;width:75%;max-width:300px;background:#111;z-index:998;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;padding:40px 32px;transform:translateX(-100%);transition:transform .35s ease;display:flex}
-.mobile-menu.open{transform:translateX(0)}
-.mobile-menu a{font-family:var(--font-mono);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;text-decoration:none;width:100%}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:28px;height:3px;background:#FAFAF5;transition:all .3s;margin:3px 0}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0A0A0A;z-index:49;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--font-mono);font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;text-decoration:none}
 .mobile-menu a:hover{color:var(--yellow)}
+
 .pub-logo-wrap{display:flex;align-items:center;gap:14px;text-decoration:none}
 .pub-logo-circle{
   width:52px;height:52px;border-radius:50%;background:var(--yellow);
@@ -66,6 +65,7 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
   transition:all .2s;white-space:nowrap;
 }
 .pub-access-btn:hover{color:var(--yellow)}
+.pub-access-btn:hover{background:var(--yellow-dim)}
 
 /* HERO */
 .pub-hero{
@@ -510,8 +510,8 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
   .dash-sidebar{display:none}
   .stat-grid{grid-template-columns:1fr 1fr}
   .pub-nav-links{display:none}
-  .pub-access-btn{display:none}
   .hamburger{display:flex !important}
+  .pub-access-btn{display:none}
   .pub-logo-text{font-size:14px}
   .pub-logo-circle{width:38px;height:38px}
 }
@@ -519,7 +519,6 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 </head>
 <body>
 <div id="top"></div>
-
 <!-- ═══════════════ PUBLIC SITE ═══════════════ -->
 <div id="view-public" class="active">
 
@@ -546,13 +545,12 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
   </svg>
 </a>
-      <a class="pub-access-btn" href="#top" onclick="showView('login')">Team Access →</a>
-    </div>
+           <a class="pub-access-btn" href="#top" onclick="showView('login')">Team Access →</a>
     <button class="hamburger" onclick="toggleMenu()" id="hamburger">
-      <span></span><span></span><span></span>
-    </button>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
-  <div class="mobile-overlay" id="mobile-overlay" onclick="toggleMenu()"></div>
   <div class="mobile-menu" id="mobile-menu">
     <a href="#film" onclick="toggleMenu()">The Film</a>
     <a href="#communities" onclick="toggleMenu()">Communities</a>
@@ -594,13 +592,13 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
     <div class="film-grid">
       <div>
         <h2 class="section-title">How do we make sense of the world?</h2>
-        <p class="film-synopsis"> Within Planet FM, a community radio station in Auckland, communities from around the globe intersect. Five of them invite us into their programmes and their communities—speaking not only of where they come from, but also of the country and the city that have welcomed them, offering a new perspective on Aotearoa.</p>
+        <p class="film-synopsis"> Within Planet FM, a community radio station in Auckland, communities from around the globe intersect. Five of them invite us into their programmes and their communities—speaking not only of their culture, but also of the country and the city that have welcomed them, offering a new perspective on Aotearoa.</p>
         <p class="film-body">Through discovering each community’s values and talents, the film explores how we experience the world as human beings. The insight each presenter gains from living in a different culture reveals how deeply the cultures we grow up in shape the way we act, perceive, and relate to others. As experiences and cultures intersect, a question gradually emerges: how can we draw on this shared human richness?</p>
         <div class="film-meta">
           <div class="film-meta-item"><div class="meta-label">Director</div><div class="meta-val">Blandine Massiet du Biest</div></div>
           <div class="film-meta-item"><div class="meta-label">Production</div><div class="meta-val">Bring Your Kete</div></div>
           <div class="film-meta-item"><div class="meta-label">Country</div><div class="meta-val">Aotearoa New Zealand</div></div>
-          <div class="film-meta-item"><div class="meta-label">Year</div><div class="meta-val">2025</div></div>
+          <div class="film-meta-item"><div class="meta-label">Year</div><div class="meta-val">2026</div></div>
           <div class="film-meta-item"><div class="meta-label">Duration</div><div class="meta-val">TBC</div></div>
           <div class="film-meta-item"><div class="meta-label">Language</div><div class="meta-val">English / Te Reo Māori</div></div>
         </div>
@@ -608,12 +606,12 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
  <div class="stills-area">
   <img src="Malayalam_Site.png" style="width:100%;height:280px;object-fit:cover"/>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px">
-    <img src="Dalmatian_Site.png" style="width:100%;height:180px;object-fit:cover"/>
-    <img src="Akwaaba_Site.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Dalmatian_Site_1.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Moui_Site_1.png" style="width:100%;height:180px;object-fit:cover"/>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px">
-    <img src="Moui_Site.png" style="width:100%;height:180px;object-fit:cover"/>
-    <img src="Latin_Site.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Latin_Site_1.png" style="width:100%;height:180px;object-fit:cover"/>
+    <img src="Akwaaba_Site_1.png" style="width:100%;height:180px;object-fit:cover"/>
   </div>
 </div>
           
@@ -630,9 +628,9 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
       <div class="comm-grid">
         <div class="comm-card"><div class="comm-name">Tonga</div><div class="comm-region">MO'ui Lelei Toulekeleka</div><div class="comm-desc">Hosted by Taani, this programme is dedicated to older people and their wellbeing. This Tongan group carries many stories and a deep sense of warmth—māfana—as explaining the joy they find in coming together, and which they share with us.</div></div>
         <div class="comm-card"><div class="comm-name">Dalmatian</div><div class="comm-region">Dalmacian Radio</div><div class="comm-desc">Nick hosts the programme Dalmatian Radio, playing music from the different regions that once made up the former Yugoslavia. He opens the door to a community that has lived in New Zealand for several generations, keeping its values and traditions very much alive.</div></div>
-        <div class="comm-card"><div class="comm-name">Malayalam</div><div class="comm-region">Malayam Radio</div><div class="comm-desc">Like many members of their community, Sindhu and George come from Kerala. They produce radio plays, music, and news for their community in Malayalam. A programme as vibrant as their community, which comes together throughout the events that mark the year.</div></div>
+        <div class="comm-card"><div class="comm-name">Malayalam</div><div class="comm-region">Malayam Radio</div><div class="comm-desc">Sindhu and George come from Kerala. They produce radio plays, music, and news for their community in Malayalam. A programme as vibrant as their community,through which we glimpse the energy they bring to their life in New Zealand..</div></div>
         <div class="comm-card"><div class="comm-name">Latin America</div><div class="comm-region">Latin Kiwi</div><div class="comm-desc">Cecilia masterfully hosts her programme “Latin Kiwi” in Spanish, speaking to the vibrant Latin American community. She keeps them up to date with local events and invites us to dance and celebrate life the way Latin Americans do so well.</div></div>
-        <div class="comm-card"><div class="comm-name">Ghanaian</div><div class="comm-region">Radio Akwaaba</div><div class="comm-desc">Kwado and Kwabena host their radio programme “Radio Akwaaba” in English and in Akan. Together, with the Ghanaian Association of New Zealand, they bring their community together—building connections across generations while living in Auckland and contributing their diverse skills to their adopted country.</div></div>
+        <div class="comm-card"><div class="comm-name">Ghanaian</div><div class="comm-region">Radio Akwaaba</div><div class="comm-desc">Kwado and Kwabena host their radio programme “Radio Akwaaba” in English and in Ghanaian languages. Together, with the Ghanaian Association of New Zealand, they bring their community together—building connections across generations while living in Auckland and contributing their diverse skills to their adopted country.</div></div>
         <div class="comm-card"><div class="comm-name">Auckland</div><div class="comm-region">A multicultural city.</div><div class="comm-desc">Auckland is a character in its own right in this film. A city where 42% of the population was born overseas, it is a vibrant melting pot where stories, music, dance, and food intertwine—offering the perfect setting to take a closer look at how our cultural identities shape the way we see the world, and how, by exploring the diversity of our values and talents more deeply, we can all learn from one another.</div></div>
         
       </div>
@@ -697,7 +695,7 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
       <div class="footer-logo-dot"><img id="footer-logo" src="" alt="BYK"/></div>
       <span class="footer-name" style="margin-left:10px">Bring Your Kete</span>
     </div>
-    <span class="footer-copy">© 2025 Bring Your Kete Production — Aotearoa New Zealand</span>
+    <span class="footer-copy">© 2026 Bring Your Kete Production — Aotearoa New Zealand</span>
   </div>
 </div>
 
@@ -1004,39 +1002,73 @@ body{font-family:var(--font-ui);background:var(--black);color:var(--white);min-h
 <div class="notif" id="notif"></div>
 
 <script>
-// ─── LOGO (embed at runtime) ───────────────────────────────────────────────
-const LOGO_B64='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAARC';
+// ─── SUPABASE CONFIG ───────────────────────────────────────────────────────
+// ⚠️  Remplace ces deux valeurs par les tiennes (copiées depuis Supabase → Settings → API)
+const SUPABASE_URL  = 'https://vptsmrhxberpybegoicm.supabase.co';       // ex: https://xxxx.supabase.co
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdHNtcmh4YmVycHliZWdvaWNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NjU0NjgsImV4cCI6MjA5MzI0MTQ2OH0.qTg5BaRUFX-eETsCxBq20qsWJF54_CVXWUhAdNtiDo4';   // clé "anon public"
 
+async function sbFetch(path, options={}){
+  const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': options.prefer || 'return=representation',
+      ...options.headers
+    },
+    ...options
+  });
+  if(!res.ok){ const err=await res.text(); console.error('Supabase error:',err); return null; }
+  const text = await res.text();
+  return text ? JSON.parse(text) : [];
+}
+
+// Upload d'un fichier dans le bucket Supabase Storage "documents"
+async function uploadFile(file, folder){
+  if(!file) return { name:'', url:'' };
+  const path = folder + '/' + Date.now() + '_' + file.name;
+  const res = await fetch(SUPABASE_URL + '/storage/v1/object/documents/' + path, {
+    method:'POST',
+    headers:{ 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY,
+               'Content-Type': file.type },
+    body: file
+  });
+  if(!res.ok){ notify('Erreur upload fichier'); return { name: file.name, url:'' }; }
+  const url = SUPABASE_URL + '/storage/v1/object/public/documents/' + path;
+  return { name: file.name, url };
+}
+
+// ─── LOGO ──────────────────────────────────────────────────────────────────
 function setLogos(){
   document.querySelectorAll('img[id$="-logo"], img[id$="logo"]').forEach(img=>{
-    if(!img.src||img.src===window.location.href)img.src=LOGO_B64;
+    img.src = 'BYK_Logo_yellow.png';
   });
 }
 
-// ─── SUPABASE ──────────────────────────────────────────────────────────────
-const SUPABASE_URL='https://vptsmrhxberpybegoicm.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdHNtcmh4YmVycHliZWdvaWNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NjU0NjgsImV4cCI6MjA5MzI0MTQ2OH0.qTg5BaRUFX-eETsCxBq20qsWJF54_CVXWUhAdNtiDo4';
-async function sbFetch(path,options={}){
-  const res=await fetch(SUPABASE_URL+'/rest/v1/'+path,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':options.prefer||'return=representation',...options.headers},...options});
-  if(!res.ok){const err=await res.text();console.error('Supabase error:',err);return null;}
-  const text=await res.text();return text?JSON.parse(text):[];
-}
-async function uploadFile(file,folder){
-  if(!file)return{name:'',url:''};
-  const path=folder+'/'+Date.now()+'_'+file.name;
-  const res=await fetch(SUPABASE_URL+'/storage/v1/object/documents/'+path,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':file.type},body:file});
-  if(!res.ok){notify('Upload error');return{name:file.name,url:''};}
-  return{name:file.name,url:SUPABASE_URL+'/storage/v1/object/public/documents/'+path};
-}
 // ─── STATE ─────────────────────────────────────────────────────────────────
 const AUTH={email:'bring.your.kete@gmail.com',pass:'BYK_2026'};
 let currentUser=null,currentCId=null,currentMId=null;
-let consents=[],music=[];
+let consents=[], music=[];
+
+// ─── CHARGEMENT DONNÉES DEPUIS SUPABASE ────────────────────────────────────
 async function loadData(){
-  const[c,m]=await Promise.all([sbFetch('consents?order=created_at.desc'),sbFetch('music?order=created_at.desc')]);
-  consents=(c||[]).map(r=>({id:r.id,name:r.name,community:r.community||'',role:r.role||'',phone:r.phone||'',email:r.email||'',date:r.date_signed||'',status:r.status||'pending',notes:r.notes||'',file:r.file_name||'',file_url:r.file_url||''}));
-  music=(m||[]).map(r=>({id:r.id,track:r.track,composer:r.composer||'',artist:r.artist||'',rights:r.rights||'',licence:r.licence||'sync',territory:r.territory||'',duration:r.duration||'',status:r.status||'pending',notes:r.notes||'',file:r.file_name||'',file_url:r.file_url||''}));
-  renderOverview();renderConsents();renderMusic();
+  const [c, m] = await Promise.all([
+    sbFetch('consents?order=created_at.desc'),
+    sbFetch('music?order=created_at.desc')
+  ]);
+  consents = (c||[]).map(r=>({
+    id:r.id, name:r.name, community:r.community||'', role:r.role||'',
+    phone:r.phone||'', email:r.email||'', date:r.date_signed||'',
+    status:r.status||'pending', notes:r.notes||'',
+    file:r.file_name||'', file_url:r.file_url||''
+  }));
+  music = (m||[]).map(r=>({
+    id:r.id, track:r.track, composer:r.composer||'', artist:r.artist||'',
+    rights:r.rights||'', licence:r.licence||'sync', territory:r.territory||'',
+    duration:r.duration||'', status:r.status||'pending', notes:r.notes||'',
+    file:r.file_name||'', file_url:r.file_url||''
+  }));
+  renderOverview(); renderConsents(); renderMusic();
 }
 
 // ─── VIEWS ─────────────────────────────────────────────────────────────────
@@ -1051,7 +1083,7 @@ function showView(v){
   target.style.display='block';
   document.body.scrollTop=0;
   document.documentElement.scrollTop=0;
-  if(v==='dashboard'){loadData();}
+  if(v==='dashboard'){ loadData(); }
   setTimeout(setLogos,50);
 }
 function showTab(t){
@@ -1171,14 +1203,36 @@ async function saveConsent(){
   if(!name){alert('Name is required.');return}
   notify('Saving…');
   const fi=document.getElementById('cf-file');
-  const fileObj=fi.files[0]||null;
-  let file_name='',file_url='';
-  if(fileObj){const up=await uploadFile(fileObj,'consents');file_name=up.name;file_url=up.url;}
-  else if(currentCId){const ex=consents.find(c=>c.id===currentCId);file_name=ex?.file||'';file_url=ex?.file_url||'';}
-  const payload={name,community:document.getElementById('cf-community').value,role:document.getElementById('cf-role').value,status:document.getElementById('cf-status').value,phone:document.getElementById('cf-phone').value,email:document.getElementById('cf-email').value,date_signed:document.getElementById('cf-date').value||null,notes:document.getElementById('cf-notes').value,file_name,file_url};
-  if(currentCId){await sbFetch('consents?id=eq.'+currentCId,{method:'PATCH',body:JSON.stringify(payload)});notify('Consent updated');}
-  else{await sbFetch('consents',{method:'POST',body:JSON.stringify(payload)});notify('New consent saved');}
-  closeModal('modal-cf');await loadData();
+  const fileObj = fi.files[0] || null;
+  let file_name='', file_url='';
+  if(fileObj){
+    const up = await uploadFile(fileObj, 'consents');
+    file_name = up.name; file_url = up.url;
+  } else if(currentCId){
+    const existing = consents.find(c=>c.id===currentCId);
+    file_name = existing?.file||''; file_url = existing?.file_url||'';
+  }
+  const payload={
+    name,
+    community:document.getElementById('cf-community').value,
+    role:document.getElementById('cf-role').value,
+    status:document.getElementById('cf-status').value,
+    phone:document.getElementById('cf-phone').value,
+    email:document.getElementById('cf-email').value,
+    date_signed:document.getElementById('cf-date').value||null,
+    notes:document.getElementById('cf-notes').value,
+    file_name, file_url
+  };
+  let result;
+  if(currentCId){
+    result = await sbFetch('consents?id=eq.'+currentCId, {method:'PATCH', body:JSON.stringify(payload)});
+    notify('Consent updated');
+  }else{
+    result = await sbFetch('consents', {method:'POST', body:JSON.stringify(payload)});
+    notify('New consent saved');
+  }
+  closeModal('modal-cf');
+  await loadData();
 }
 
 function openConsentDetail(id){
@@ -1196,15 +1250,17 @@ function openConsentDetail(id){
       <div class="detail-item"><div class="detail-lbl">Date Signed</div><div class="detail-val">${c.date||'—'}</div></div>
     </div>
     ${c.notes?`<div style="background:#111;padding:13px 16px;border:1px solid #1a1a1a;margin-bottom:8px"><div class="detail-lbl" style="margin-bottom:4px">Notes</div><div style="font-size:13px;line-height:1.6;color:#bbb">${c.notes}</div></div>`:''}
-    ${c.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${c.file}</div><div class="file-meta">Signed consent document</div></div>`<a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a></div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
+    ${c.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${c.file}</div><div class="file-meta">Signed consent document</div></div>${c.file_url?`<a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a>`:`<button class="row-btn" style="margin-left:auto">Download →</button>`}</div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
   `;
   openModal('modal-cd');
 }
 
 async function deleteConsent(){
   if(!confirm('Delete this consent permanently?'))return;
-  await sbFetch('consents?id=eq.'+currentCId,{method:'DELETE',prefer:''});
-  closeModal('modal-cd');await loadData();notify('Consent deleted');
+  await sbFetch('consents?id=eq.'+currentCId, {method:'DELETE', prefer:''});
+  closeModal('modal-cd');
+  await loadData();
+  notify('Consent deleted');
 }
 function editConsent(){openConsentForm(currentCId)}
 
@@ -1265,14 +1321,36 @@ async function saveMusic(){
   if(!track){alert('Track title is required.');return}
   notify('Saving…');
   const fi=document.getElementById('mf-file');
-  const fileObj=fi.files[0]||null;
-  let file_name='',file_url='';
-  if(fileObj){const up=await uploadFile(fileObj,'music');file_name=up.name;file_url=up.url;}
-  else if(currentMId){const ex=music.find(m=>m.id===currentMId);file_name=ex?.file||'';file_url=ex?.file_url||'';}
-  const payload={track,composer:document.getElementById('mf-composer').value,artist:document.getElementById('mf-artist').value,rights:document.getElementById('mf-rights').value,licence:document.getElementById('mf-licence').value,territory:document.getElementById('mf-territory').value,duration:document.getElementById('mf-duration').value,status:document.getElementById('mf-status').value,notes:document.getElementById('mf-notes').value,file_name,file_url};
-  if(currentMId){await sbFetch('music?id=eq.'+currentMId,{method:'PATCH',body:JSON.stringify(payload)});notify('Track updated');}
-  else{await sbFetch('music',{method:'POST',body:JSON.stringify(payload)});notify('New track saved');}
-  closeModal('modal-mf');await loadData();
+  const fileObj = fi.files[0] || null;
+  let file_name='', file_url='';
+  if(fileObj){
+    const up = await uploadFile(fileObj, 'music');
+    file_name = up.name; file_url = up.url;
+  } else if(currentMId){
+    const existing = music.find(m=>m.id===currentMId);
+    file_name = existing?.file||''; file_url = existing?.file_url||'';
+  }
+  const payload={
+    track,
+    composer:document.getElementById('mf-composer').value,
+    artist:document.getElementById('mf-artist').value,
+    rights:document.getElementById('mf-rights').value,
+    licence:document.getElementById('mf-licence').value,
+    territory:document.getElementById('mf-territory').value,
+    duration:document.getElementById('mf-duration').value,
+    status:document.getElementById('mf-status').value,
+    notes:document.getElementById('mf-notes').value,
+    file_name, file_url
+  };
+  if(currentMId){
+    await sbFetch('music?id=eq.'+currentMId, {method:'PATCH', body:JSON.stringify(payload)});
+    notify('Track updated');
+  }else{
+    await sbFetch('music', {method:'POST', body:JSON.stringify(payload)});
+    notify('New track saved');
+  }
+  closeModal('modal-mf');
+  await loadData();
 }
 
 function openMusicDetail(id){
@@ -1292,15 +1370,17 @@ function openMusicDetail(id){
       <div class="detail-item"><div class="detail-lbl">Duration</div><div class="detail-val">${m.duration||'—'}</div></div>
     </div>
     ${m.notes?`<div style="background:#111;padding:13px 16px;border:1px solid #1a1a1a;margin-bottom:8px"><div class="detail-lbl" style="margin-bottom:4px">Notes</div><div style="font-size:13px;line-height:1.6;color:#bbb">${m.notes}</div></div>`:''}
-    ${m.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${m.file}</div><div class="file-meta">Licence document</div></div>`<a href="${c.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a></div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
+    ${m.file?`<div class="file-card"><div class="file-icon">📎</div><div><div class="file-name">${m.file}</div><div class="file-meta">Licence document</div></div>${m.file_url?`<a href="${m.file_url}" target="_blank" class="row-btn" style="margin-left:auto">Download →</a>`:`<button class="row-btn" style="margin-left:auto">Download →</button>`}</div>`:'<div style="font-size:12px;color:#444;margin-top:8px">No document attached</div>'}
   `;
   openModal('modal-md');
 }
 
 async function deleteMusic(){
   if(!confirm('Delete this track permanently?'))return;
-  await sbFetch('music?id=eq.'+currentMId,{method:'DELETE',prefer:''});
-  closeModal('modal-md');await loadData();notify('Track deleted');
+  await sbFetch('music?id=eq.'+currentMId, {method:'DELETE', prefer:''});
+  closeModal('modal-md');
+  await loadData();
+  notify('Track deleted');
 }
 function editMusic(){openMusicForm(currentMId)}
 
@@ -1327,26 +1407,23 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{
   o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')});
 });
 
-// ─── NAV SCROLL ────────────────────────────────────────────────────────────
-let scrollTimer=null;
+// ─── INIT ──────────────────────────────────────────────────────────────────
+// ─── NAV SCROLL BEHAVIOUR ──────────────────────────────────────────────────
+let scrollTimer=null, lastScroll=0;
 window.addEventListener('scroll',()=>{
   const nav=document.querySelector('.pub-nav');
   if(!nav)return;
   nav.classList.add('hidden');
   clearTimeout(scrollTimer);
-  scrollTimer=setTimeout(()=>nav.classList.remove('hidden'),1000);
-},{passive:true});
+  scrollTimer=setTimeout(()=>{ nav.classList.remove('hidden'); },1000);
+  lastScroll=window.scrollY;
+},{ passive:true });
 
 function toggleMenu(){
-  document.getElementById('mobile-menu').classList.toggle('open');
-  document.getElementById('mobile-overlay').classList.toggle('open');
+  const m=document.getElementById('mobile-menu');
+  m.classList.toggle('open');
 }
-
-// ─── INIT ──────────────────────────────────────────────────────────────────
-function setLogos(){
-  document.querySelectorAll('img[id$="-logo"],img[id$="logo"]').forEach(img=>{img.src='BYK_Logo_yellow.png';});
-}
-window.addEventListener('load',()=>{
+  window.addEventListener('load',()=>{
   setTimeout(setLogos,100);
 });
 </script>
