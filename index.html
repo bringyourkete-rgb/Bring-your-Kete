@@ -847,13 +847,17 @@ async function loadData(){
     return;
   }
   if(status) status.textContent = '⟳ Loading from Google Sheets…';
-  const [c, m] = await Promise.all([
-    gsRequest('getConsents'),
-    gsRequest('getMusic')
-  ]);
-  if(c && c.data){ consents = c.data; nextCId = consents.length + 1; }
-  if(m && m.data){ music = m.data; nextMId = music.length + 1; }
-  if(status) status.textContent = '✓ Connected to Google Sheets — ' + consents.length + ' consents, ' + music.length + ' tracks';
+  try {
+    const [c, m] = await Promise.all([
+      fetch(GS_URL + '?action=getConsents').then(r=>r.json()),
+      fetch(GS_URL + '?action=getMusic').then(r=>r.json())
+    ]);
+    if(c && c.data){ consents = c.data; nextCId = consents.length + 1; }
+    if(m && m.data){ music = m.data; nextMId = music.length + 1; }
+    if(status) status.textContent = '✓ Connected to Google Sheets — ' + consents.length + ' consents, ' + music.length + ' tracks';
+  } catch(e){
+    if(status) status.textContent = '⚠️ Error loading data';
+  }
   renderOverview(); renderConsents(); renderMusic();
 }
 
