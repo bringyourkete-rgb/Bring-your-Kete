@@ -813,26 +813,13 @@ let nextCId=1,nextMId=1;
 async function gsRequest(action, data={}){
   try{
     const body = JSON.stringify({action, ...data});
-    const res = await fetch(GS_URL, {
+    await fetch(GS_URL, {
       method:'POST',
       mode:'no-cors',
       body: body,
       headers:{'Content-Type':'text/plain'}
     });
     return null;
-  } catch(e){
-    console.error('GS error:', e);
-    return null;
-  }
-}
-  try{
-    const url = GS_URL + '?action=' + action + '&t=' + Date.now();
-    const res = await fetch(url, {
-      method:'POST',
-      body: JSON.stringify(data),
-      headers:{'Content-Type':'text/plain'} // Apps Script needs text/plain for CORS
-    });
-    return await res.json();
   } catch(e){
     console.error('GS error:', e);
     return null;
@@ -860,7 +847,6 @@ async function loadData(){
   }
   renderOverview(); renderConsents(); renderMusic();
 }
-
 // ── VIEWS ────────────────────────────────────────────────────
 function showView(v){
   ['public','login','dashboard'].forEach(n=>{
