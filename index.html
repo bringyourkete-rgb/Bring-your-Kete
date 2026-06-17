@@ -812,6 +812,20 @@ let nextCId=1,nextMId=1;
 // ── GOOGLE SHEETS API ────────────────────────────────────────
 async function gsRequest(action, data={}){
   try{
+    const body = JSON.stringify({action, ...data});
+    const res = await fetch(GS_URL, {
+      method:'POST',
+      mode:'no-cors',
+      body: body,
+      headers:{'Content-Type':'text/plain'}
+    });
+    return null;
+  } catch(e){
+    console.error('GS error:', e);
+    return null;
+  }
+}
+  try{
     const url = GS_URL + '?action=' + action + '&t=' + Date.now();
     const res = await fetch(url, {
       method:'POST',
